@@ -3,10 +3,10 @@ const Cats = require("./cats");
 const Reviews = require("./reviews");
 const User = require("./user");
 
-Orders.belongsTo(User, { as: "user" });
+Orders.belongsTo(User);
 User.hasMany(Orders);
-Reviews.belongsTo(User, { as: "user" });
-Reviews.belongsTo(Cats, { as: "cat" });
+Reviews.belongsTo(User);
+Reviews.belongsTo(Cats);
 User.hasMany(Reviews);
 Cats.hasMany(Reviews);
 

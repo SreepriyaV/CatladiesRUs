@@ -7,10 +7,7 @@ const Orders = db.define("orders", {
    
   },
   status: {
-    type: Sequelize.STRING,
-    validate:{
-        isIn:[['Created',  'Processing', 'Cancelled', 'Completed']]
-    }
+    type: Sequelize.ENUM('Created',  'Processing', 'Cancelled', 'Completed')
   },
 totalPrice:{
     type: Sequelize.DECIMAL(12,2)
