@@ -20,20 +20,20 @@ const Cats = db.define("cats", {
   color: {
     type: Sequelize.STRING
   },
-  hairlength: {
-    type: Sequelize.DECIMAL(12, 2)
+  hairLength: {
+    type: Sequelize.STRING
   },
-  celebrityStatus: {
+  profession: {
     type: Sequelize.STRING
   },
   quantity: {
     type: Sequelize.INTEGER
   },
   price: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(12,2),
     allowNull: false
   },
-  photo: {
+  image: {
     type: Sequelize.STRING
   }
 });

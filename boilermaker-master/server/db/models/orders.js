@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Order = db.define("order", {
+const Orders = db.define("orders", {
   cart: {
     type: Sequelize.ARRAY(Sequelize.STRING),
    
@@ -13,8 +13,8 @@ const Order = db.define("order", {
     }
   },
 totalPrice:{
-    type: Sequelize.STRING
+    type: Sequelize.DECIMAL(12,2)
 }
 });
 
-module.exports = Order;
+module.exports = Orders;
