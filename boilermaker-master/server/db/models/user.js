@@ -5,6 +5,10 @@ const db = require('../db')
 const User = db.define('user', {
   name:{
     type:Sequelize.STRING
+    
+  },
+  isAdmin:{
+    type:Sequelize.BOOLEAN
   },
   email: {
     type: Sequelize.STRING,
