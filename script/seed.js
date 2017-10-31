@@ -53,7 +53,7 @@ var data = {
     },   {
       name: 'Emma Stone',
       description: 'Large-eyed showcat who fits in perfectly as one of the guys.',
-      breed: '',
+      breed: 'Domestic Shorthair',
       age: 4,
       color: 'Red Grey Tabby',
       hairLength: 'short',
@@ -77,8 +77,8 @@ var data = {
       description: 'Dame Maggie Smith... obviously',
       breed: 'Sphynx',
       age: 19,
-      color: 'Free Wif-Fi',
-      hairLength: 'N/A',
+      color: 'Tan',
+      hairLength: 'short',
       profession: 'Drama Queen',
       price: 850.81,
       image: '/images/maggie-smith.jpg',
@@ -236,31 +236,31 @@ var data = {
     {
       userId: 1,
       cart: [4, 8],
-      status: 'completed',
+      status: 'Completed',
       totalPrice: 37
     },
     {
       userId: 2,
       cart: [9, 11, 6],
-      status: 'shipped',
+      status: 'Processing',
       totalPrice: 37
     },
     {
       userId: 3,
       cart: [5],
-      status: 'created',
+      status: 'Created',
       totalPrice: 37
     },
     {
       userId: 1,
       cart: [3, 3],
-      status: 'created',
+      status: 'Created',
       totalPrice: 37
     },
     {
       userId: 2,
       cart: [10, 13],
-      status: 'completed',
+      status: 'Completed',
       totalPrice: 37
     }
   ],
@@ -306,7 +306,7 @@ async function seed () {
   // executed until that promise resolves!
 
   const catters = await Promise.all(data.cats.map(cat => Cats.create(cat)))
-  const users = await Promise.all(data.users.map(user => User.create(user)))
+  const users = await Promise.all(data.user.map(user => User.create(user)))
   const orders = await Promise.all(data.orders.map(order => Orders.create(order)))
   const reviews = await Promise.all(data.reviews.map(review => Reviews.create(review)))
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
