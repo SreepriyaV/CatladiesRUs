@@ -11,6 +11,9 @@ const User = db.define('user', {
   password: {
     type: Sequelize.STRING
   },
+  address:{
+    type:Sequelize.STRING
+  },
   salt: {
     type: Sequelize.STRING
   },
