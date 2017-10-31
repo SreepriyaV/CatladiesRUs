@@ -84,7 +84,7 @@ var data = {
       image: '/images/maggie-smith.jpg',
       quantity: 1
     },   {
-      name: 'Mythbusters\s Jamie Hyneman',
+      name: 'Mythbusters\' Jamie Hyneman',
       description: 'A very analytical cat with a dry sense of humor and an affinity for caps',
       breed: 'Persian',
       age: 6,
