@@ -1,3 +1,4 @@
+"use strict";
 import React from "react";
 
 import { connect } from "react-redux";
@@ -10,55 +11,52 @@ class AllCatsComponent extends React.Component {
     super(props);
     this.state = {
       category: "",
-      cats:[]
-    }
+      cats: [],
+      selectedCats: []
+    };
     this.onSelectSubmit = this.onSelectSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({ cats: this.props.cats });
   }
 
   onSelectSubmit(event) {
     this.setState({ category: event.target.value });
   }
 
-  onSelectCategory()
-  {
-    
+  selectCategory(category) {
+    let newCats;
+
+    if (category) {
+      newCats = this.state.cats.filter(cats => cats.category == category);
+      this.setState({ selectedCats: newCats });
+    }
   }
   render() {
-    const { cats } = props;
-
+    //const { cats } = props;
+    const { cats } = this.state;
+    console.log("HELLO ");
     return (
       <div>
-        <ul>{cats.map(cat => <li key={cat.id}>{cat.name}</li>)}</ul>
+        <ul>{cats && cats.map(cat => <li key={cat.id}>{cat.name}</li>)}</ul>
 
         <div>
-          <select  onChange={this.onSelectSubmit}>
-            {/* <option>AGE</option>
-            <option value="kitten"> Kitten</option> //if age less than 10
-            <option value="adult"> Adult</option> //if age greater than 10 */}
-            {/* <option>Color</option>
-
-            {cats.map(cat => (
-              <option key={cat.id} value={cat.color}>
-                {" "}
-                cat.color
-              </option>
-            ))} */}
+          <select onChange={this.onSelectSubmit}>
             <option>HairLength</option>
-            
-            
+            <option value="short"> short</option>
+            <option value="medium"> medium</option>
+            <option value="long"> long</option>
             <option>Profession</option>
-           
-            ))}
-            {/* <option>Breed</option>
-            {cats.map(cat => (
-              <option key={cat.id} value={cat.breed}>
-                {" "}
-                cat.breed
-              </option>
-            ))} */}
+            <option value="Drama Queen"> Drama Queen</option>
+            <option value="Painter (fingers-crossed)">
+              Painter (fingers-crossed)
+            </option>
+            <option value="Howler"> Howler</option>
+            <option value="Spazzer"> Spazzer</option>
+            <option value="Man of the People"> Man of the People</option>
           </select>
         </div>
-        
       </div>
     );
   }
