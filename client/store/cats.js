@@ -15,7 +15,7 @@ const defaultCats = [];
 /**
  * ACTION CREATORS
  */
-const getCats = users => ({type: GET_CATS, users})
+const getCats = cats => ({type: GET_CATS, cats})
 
 
 /**
@@ -25,7 +25,7 @@ export const fetchCats = () =>
   dispatch =>
     axios.get('/api/cats/')
       .then(res =>
-        dispatch(getCats(res.data || defaultUser)))
+        dispatch(getCats(res.data)))
       .catch(err => console.log(err))
 
 
@@ -36,7 +36,7 @@ export const fetchCats = () =>
 export default function (state = defaultCats, action) {
   switch (action.type) {
     case GET_CATS:
-      return {...state, users: action.users}
+      return   action.cats;
    
     default:
       return state

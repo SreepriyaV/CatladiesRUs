@@ -26,10 +26,7 @@ const Cats = db.define("cats", {
     type: Sequelize.STRING
   },
   quantity: {
-<<<<<<< HEAD
-=======
     //not less that zero
->>>>>>> master
     type: Sequelize.INTEGER
   },
   price: {
@@ -37,10 +34,7 @@ const Cats = db.define("cats", {
     allowNull: false
   },
   image: {
-<<<<<<< HEAD
-=======
     //default val
->>>>>>> master
     type: Sequelize.STRING
   }
 });
