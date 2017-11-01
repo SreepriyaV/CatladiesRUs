@@ -1,8 +1,8 @@
 "use strict";
-import React,{Component} from "react";
-import {withRouter, Link} from 'react-router-dom'
+import React, { Component } from "react";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {fetchCats} from "../store/cats";
+import { fetchCats } from "../store/cats";
 
 /**
  * COMPONENT
@@ -10,35 +10,31 @@ import {fetchCats} from "../store/cats";
 class AllCatsComponent extends Component {
   constructor(props) {
     super(props);
-   
+
     this.onSelectSubmit = this.onSelectSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.props.getCats()
- 
+    this.props.getCats();
   }
 
-  onSelectSubmit(event) {
+  onSelectSubmit(event) {}
 
-  }
-
- 
-  
   render() {
-  
-   
     const { cats } = this.props;
- 
-    
+
     return (
       <div>
-        <ul>{ cats.map(cat => <li key={cat.id}>{cat.name}  
-          <h4>Price: {cat.price}</h4>
-         
-          <img src={cat.image} alt="cats" height="100" width="100"/>
-          
-          </li>)}</ul>
+        <ul>
+          {cats.map(cat => (
+            <li key={cat.id}>
+              {cat.name}
+              <h4>Price: {cat.price}</h4>
+
+              <img src={cat.image} alt="cats" height="100" width="100" />
+            </li>
+          ))}
+        </ul>
 
         <div>
           <select onChange={this.onSelectSubmit}>
@@ -57,8 +53,6 @@ class AllCatsComponent extends Component {
           </select>
         </div>
       </div>
-
-    
     );
   }
 }
@@ -74,11 +68,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-
-      getCats:()=>{
-        dispatch(fetchCats())
-
-      }
-  }
-}
+    getCats: () => {
+      dispatch(fetchCats());
+    }
+  };
+};
 export default connect(mapState, mapDispatch)(AllCatsComponent);
