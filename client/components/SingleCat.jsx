@@ -60,5 +60,5 @@ class SingleCat extends React.Component {
   }
 }
 
-export default SingleArtist;
+export default SingleCat;
 
