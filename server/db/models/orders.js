@@ -6,9 +6,9 @@ const Orders = db.define("orders", {
     type: Sequelize.ENUM('Created', 'Shipped', 'Delivered', 'Cancelled'),
     defaultValue: 'Created'
   },
-totalPrice:{
+  totalPrice:{
     type: Sequelize.DECIMAL(12,2)
-}
+  }
 });
 
 module.exports = Orders;

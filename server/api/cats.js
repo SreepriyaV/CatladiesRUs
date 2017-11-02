@@ -8,3 +8,8 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
  
+router.get('/:catId', (req, res, next) => {
+  Cats.findById(req.params.catId)
+    .then(cat => res.json(cat))
+    .catch(next)
+})

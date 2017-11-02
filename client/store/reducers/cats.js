@@ -1,26 +1,15 @@
 import axios from 'axios'
 
-
-/**
- * ACTION TYPES
- */
+//ACTION TYPES
 const GET_CATS = 'GET_CATS'
 
-
-/**
- * INITIAL STATE
- */
+//INITIAL STATE
 const defaultCats = [];
 
-/**
- * ACTION CREATORS
- */
+//ACTION CREATORS
 const getCats = cats => ({type: GET_CATS, cats})
 
-
-/**
- * THUNK CREATORS
- */
+//THUNK CREATORS
 export const fetchCats = () =>
   dispatch =>
     axios.get('/api/cats/')
@@ -28,16 +17,12 @@ export const fetchCats = () =>
         dispatch(getCats(res.data)))
       .catch(err => console.log(err))
 
-
-
-/**
- * REDUCER
- */
+//REDUCER
 export default function (state = defaultCats, action) {
   switch (action.type) {
     case GET_CATS:
-      return   action.cats;
-   
+      return action.cats;
+
     default:
       return state
   }
