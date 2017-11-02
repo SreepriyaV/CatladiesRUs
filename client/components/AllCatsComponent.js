@@ -4,21 +4,6 @@ import {withRouter, Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {fetchCats} from '../store/reducers/cats';
 
-/**
- * COMPONENT
- */
-
- /*
- 
- component local state: { hairLength: '',  profession: ''}
- 
-componentDidMount: loads all cats in redux store, which "connect" passes down as props
-
-render: 
-
-
- */
-
 class AllCatsComponent extends Component {
   
   constructor(props) {
@@ -83,40 +68,23 @@ class AllCatsComponent extends Component {
         </fieldset>
 
         {/* MAKE A CLEAR FILTERS BUTTON */}
-        
-        <ul>{cats.map(cat => (<li key={cat.id}>{cat.name}
-          <h4>Price: {cat.price}</h4>
-         
-          <img src={cat.image} alt="cats" height="100" width="100"/>
-          
-          </li>))}</ul>
-
-        {/* <div>
-          <select onChange={this.onSelectSubmit}>
-            <option>HairLength</option>
-            <option value="short"> short</option>
-            <option value="medium"> medium</option>
-            <option value="long"> long</option>
-            <option>Profession</option>
-            <option value="Drama Queen"> Drama Queen</option>
-            <option value="Painter (fingers-crossed)">
-              Painter (fingers-crossed)
-            </option>
-            <option value="Howler"> Howler</option>
-            <option value="Spazzer"> Spazzer</option>
-            <option value="Man of the People"> Man of the People</option>
-          </select>
-        </div> */}
+      
+        <ul>{ cats.map( cat => (
+          <li key={cat.id}>
+            <Link to={`/cats/${cat.id}`}>
+              <img src={cat.image} alt="cats" height="200"/>
+              <h4> {cat.name} </h4>
+            </Link>
+            <h4>Price: {cat.price}</h4>
+            </li>
+            ))}
+        </ul>
       </div>
-
-
     );
   }
 }
 
-/**
- * CONTAINER
- */
+//CONTAINER
 const mapState = state => {
   return {
     cats: state.cats
@@ -127,10 +95,7 @@ const mapDispatch = dispatch => {
   return {
 
       getCats: () => {
-        const returnVal = dispatch(fetchCats())
-        console.log(returnVal)
-        return returnVal
-
+        return dispatch(fetchCats())
       }
   }
 }

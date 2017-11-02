@@ -1,44 +1,35 @@
-import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
-import axios from 'axios';
-import AllCats from './AllCats';
-import Review from './Review';
+"use strict";
+import React,{Component} from "react";
+import {withRouter, Link} from 'react-router-dom'
+import { connect } from "react-redux";
+import {fetchOneCat} from "../store";
 
 class SingleCat extends React.Component {
-
-  constructor () {
-    super();
-    this.state = {
-      cat: {},
-      currentUser: {}
-    };
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount () {
-    const catId = this.props.match.params.id;
-      axios.get(`/api/cats/${catId}`)
-        .then(res => res.data)
-        .then(cat => this.setState({
-          cat: cat
-        }));
+    const catId = this.props.match.params.catId;
+    this.props.getOneCat(catId);
     // I DONT KNOW HOW TO PUT THE CURRENT USER IN THE LOCAL STATE
   }
 
   render () {
-
+    const { cat } = this.props;
+    console.log("cat props", this.props);
     return (
     <div>
-        <div className="className1">
+        {/* <div className="className1">
             { cat.quantity === 0 ?
                 <h2> OUT OF STOCK </h2>
                 : null
             }
-        </div>
+        </div> */}
 
         <div>
-            <h2>{ cat.image }</h2>
+            <img src={cat.image} alt="cats" height="300"/>
             <h2>{ cat.name }</h2>
-            <button> Add to Cart </button >
             <h4>About: { cat.description }</h4>
             <h4>Breed: { cat.breed} </h4>
             <h4>Age: { cat.age } </h4>
@@ -47,18 +38,34 @@ class SingleCat extends React.Component {
             <h4>Profession: { cat.profession } </h4>
             <br />
             <h4>Price: { cat.price } </h4>
+            <button> Add to Cart </button >
         </div>
 
-        <div className="className1">
+        {/* <div className="className1">
             { currentUser.name ?
                 <Review />
                 : null
             }
-        </div>
+        </div> */}
     </div>
     );
   }
 }
 
-export default SingleCat;
+//CONTAINER
+const mapState = state => {
+  return {
+    cat: state.cat
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    getOneCat: (catId) => {
+      dispatch(fetchOneCat(catId))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(SingleCat);
 
