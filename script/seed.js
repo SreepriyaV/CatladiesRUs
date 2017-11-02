@@ -12,7 +12,7 @@
 const db = require('../server/db')
 //const {User} = require('../server/db/models')
 //const Promise = require('bluebird');
-const { Cats, User, Orders, Reviews } = require('../server/db/models');
+const { Cats, User, Orders, Reviews, Carts } = require('../server/db/models');
 
 var data = {
   cats: [
@@ -24,7 +24,7 @@ var data = {
       color: 'Brown and White Tabby',
       hairLength: 'short',
       profession: 'Drama Queen',
-      price: 673.96,
+      price: 673.01,
       image: '/images/adam-driver.png',
       quantity: 3
     },
@@ -36,7 +36,7 @@ var data = {
       color: 'White and Black',
       hairLength: 'short',
       profession: 'Painter (fingers-crossed)',
-      price: 345.87,
+      price: 345.02,
       image: '/images/Adolf-Kitler.png',
       quantity: 14
     },   {
@@ -47,7 +47,7 @@ var data = {
       color: 'White',
       hairLength: 'short',
       profession: 'Howler',
-      price: 783.96,
+      price: 783.03,
       image: '/images/david-bowie.png',
       quantity: 0
     },   {
@@ -58,7 +58,7 @@ var data = {
       color: 'Red Grey Tabby',
       hairLength: 'short',
       profession: 'Drama Queen',
-      price: 562.95,
+      price: 562.04,
       image: '/images/emma-stone.png',
       quantity: 7
     },   {
@@ -69,7 +69,7 @@ var data = {
       color: 'Grey and Brown',
       hairLength: 'long',
       profession: 'Spazzer',
-      price: 496.11,
+      price: 496.05,
       image: '/images/gatten-matarazzo.jpg',
       quantity: 11
     },   {
@@ -80,7 +80,7 @@ var data = {
       color: 'Tan',
       hairLength: 'short',
       profession: 'Drama Queen',
-      price: 850.81,
+      price: 850.06,
       image: '/images/maggie-smith.jpg',
       quantity: 1
     },   {
@@ -91,7 +91,7 @@ var data = {
       color: 'Orange',
       hairLength: 'long',
       profession: 'Spazzer',
-      price: 379.18,
+      price: 379.07,
       image: '/images/mythbusters-jamie-hyneman.jpg',
       quantity: 6
     },   {
@@ -102,7 +102,7 @@ var data = {
       color: 'Grey Tabby',
       hairLength: 'medium',
       profession: 'Spazzer',
-      price: 478.12,
+      price: 478.08,
       image: '/images/Nick-offerman.png',
       quantity: 5
     },   {
@@ -113,7 +113,7 @@ var data = {
       color: 'White',
       hairLength: 'long',
       profession: 'Howler',
-      price: 841.92,
+      price: 841.09,
       image: '/images/nikki-minaj.jpg',
       quantity: 3
     },   {
@@ -124,7 +124,7 @@ var data = {
       color: 'Grey',
       hairLength: 'short',
       profession: 'Howler',
-      price: 2,
+      price: 2.10,
       image: '/images/ozzy-osbourne.jpg',
       quantity: 33
     },   {
@@ -135,7 +135,7 @@ var data = {
       color: 'Brown and Tan',
       hairLength: 'short',
       profession: 'Drama Queen',
-      price: 1048.82,
+      price: 1048.11,
       image: '/images/peter-dinklage.jpg',
       quantity: 9
     },   {
@@ -146,7 +146,7 @@ var data = {
       color: 'Orange Tabby',
       hairLength: 'long',
       profession: 'Drama Queen',
-      price: 299.73,
+      price: 299.12,
       image: '/images/ron-perlman.jpg',
       quantity: 4
     },   {
@@ -157,7 +157,7 @@ var data = {
       color: 'White and Grey',
       hairLength: 'short',
       profession: 'Spazzer',
-      price: 451.92,
+      price: 451.13,
       image: 'images/Steve-Buscemi.jpg',
       quantity: 7
     },   {
@@ -168,7 +168,7 @@ var data = {
       color: 'WHite',
       hairLength: 'short',
       profession: 'Howler',
-      price: 948.19,
+      price: 948.14,
       image: 'images/tegan-and-sara.jpg',
       quantity: 2
     },   {
@@ -179,7 +179,7 @@ var data = {
       color: 'Grey',
       hairLength: 'short',
       profession: 'Drama Queen',
-      price: 837.66,
+      price: 837.15,
       image: 'images/Ryan-Gosling.jpg',
       quantity: 9
     },   {
@@ -190,7 +190,7 @@ var data = {
       color: 'Brown Tabby',
       hairLength: 'short',
       profession: 'Man of the People',
-      price: 635.98,
+      price: 635.16,
       image: '/images/fatter-taft.jpg',
       quantity: 12
     }
@@ -235,33 +235,85 @@ var data = {
   orders: [
     {
       userId: 1,
-      cart: [4, 8],
-      status: 'Completed',
-      totalPrice: 37
+      status: 'Delivered',
+      totalPrice: 562.04 + 478.08
     },
     {
       userId: 2,
-      cart: [9, 11, 6],
-      status: 'Processing',
-      totalPrice: 37
+      status: 'Shipped',
+      totalPrice: 841.09 + 1048.11 + 850.06
     },
     {
       userId: 3,
-      cart: [5],
       status: 'Created',
-      totalPrice: 37
+      totalPrice: 496.05
     },
     {
       userId: 1,
-      cart: [3, 3],
       status: 'Created',
-      totalPrice: 37
+      totalPrice: 783.03 + 783.03
     },
     {
       userId: 2,
       cart: [10, 13],
-      status: 'Completed',
-      totalPrice: 37
+      status: 'Delivered',
+      totalPrice: 2.10 + 451.13
+    }
+  ],
+  carts: [
+    {
+      orderId: 1,
+      catId: 4,
+      quantity: 1,
+      purchasePrice: 562.04
+    },
+    {
+      orderId: 1,
+      catId: 8,
+      quantity: 1,
+      purchasePrice: 478.08
+    },
+    {
+      orderId: 2,
+      catId: 9,
+      quantity: 1,
+      purchasePrice: 841.09
+    },
+    {
+      orderId: 2,
+      catId: 11,
+      quantity: 1,
+      purchasePrice: 1048.11
+    },
+    {
+      orderId: 2,
+      catId: 6,
+      quantity: 1,
+      purchasePrice: 850.06
+    },
+    {
+      orderId: 3,
+      catId: 5,
+      quantity: 1,
+      purchasePrice: 496.05
+    },
+    {
+      orderId: 4,
+      catId: 3,
+      quantity: 2,
+      purchasePrice: 496.05
+    },
+    {
+      orderId: 5,
+      catId: 10,
+      quantity: 1,
+      purchasePrice: 2.10
+    },
+    {
+      orderId: 5,
+      catId: 13,
+      quantity: 1,
+      purchasePrice: 451.13
     }
   ],
   reviews: [
@@ -309,12 +361,14 @@ async function seed () {
   const users = await Promise.all(data.user.map(user => User.create(user)))
   const orders = await Promise.all(data.orders.map(order => Orders.create(order)))
   const reviews = await Promise.all(data.reviews.map(review => Reviews.create(review)))
+  const carts = await Promise.all(data.carts.map(cart => Carts.create(cart)))
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${catters.length} cats`)
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${orders.length} orders`)
   console.log(`seeded ${reviews.length} reviews`)
+  console.log(`seeded ${carts.length} carts`)
   console.log(`seeded successfully`)
 }
 
