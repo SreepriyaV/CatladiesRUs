@@ -26,15 +26,14 @@ const Cats = db.define("cats", {
     type: Sequelize.STRING
   },
   quantity: {
-    //not less that zero
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   },
   price: {
     type: Sequelize.DECIMAL(12,2),
     allowNull: false
   },
   image: {
-    //default val
     type: Sequelize.STRING
   }
 });
