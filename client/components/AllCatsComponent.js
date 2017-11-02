@@ -7,48 +7,44 @@ import {fetchCats} from '../store/reducers/cats';
 /**
  * COMPONENT
  */
+
+ /*
+ 
+ component local state: { hairLength: '',  profession: ''}
+ 
+componentDidMount: loads all cats in redux store, which "connect" passes down as props
+
+render: 
+
+
+ */
+
 class AllCatsComponent extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      cats: [],
-      // hairLength: {
-      //   short: false;
-
-      // }
+      filteredCats: []
     }
-
     this.handleChange = this.handleChange.bind(this);
-    
-  }
-
-  loadState() {
-    this.setState(this.props.cats)
   }
   
   componentDidMount() {
     console.log('component mounted')
     this.props.getCats()
-    .then(this.loadState())
-    console.log('this.props.cats', this.props.cats)
   }
-  
 
   handleChange(event) {
     const target = event.target;
     const key = target.name === 'hairLength' ? 'hairLength' : 'profession'
-    const newState = this.state.cats.filter(cat => cat[key] === target.value)
-    this.setState({cats: newState})
+    const newState = this.props.cats.filter(cat => cat[key] === target.value)
+    this.setState({filteredCats: newState})
   }
-
 
   render() {
 
-
-    const { cats } = this.state.cats;
+    const cats = (this.state.filteredCats.length) ? this.state.filteredCats : this.props.cats;
     console.log(cats)
-//  <FILTERFORM cats={this.props.cats} />
     return (
       <div>
         <fieldset>
@@ -88,7 +84,7 @@ class AllCatsComponent extends Component {
 
         {/* MAKE A CLEAR FILTERS BUTTON */}
         
-        <ul>{cats && cats.map(cat => (<li key={cat.id}>{cat.name}
+        <ul>{cats.map(cat => (<li key={cat.id}>{cat.name}
           <h4>Price: {cat.price}</h4>
          
           <img src={cat.image} alt="cats" height="100" width="100"/>
@@ -131,7 +127,9 @@ const mapDispatch = dispatch => {
   return {
 
       getCats: () => {
-        dispatch(fetchCats())
+        const returnVal = dispatch(fetchCats())
+        console.log(returnVal)
+        return returnVal
 
       }
   }
