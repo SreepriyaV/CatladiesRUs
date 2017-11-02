@@ -23,13 +23,13 @@ const getUser = user => ({ type: GET_SINGLE_USER, user });
  */ 
 export const fetchUser = userName => dispatch =>
   axios
-    .get(`/api/users/${userName}`)
+    .get(`/api/users/user/${userName}`)
     .then(res => dispatch(getUser(res.data)))
     .catch(err => console.log(err));
 
-export const putStatus = (status, userName) => dispatch =>
+export const putStatus = (userName) => dispatch =>
   axios
-    .put(`/api/users/${userName}/${status}`)
+    .put(`/api/users/user/${userName}`)
     .then(res => dispatch(getUser(res.data)))
     .catch(err => console.log(err));
 

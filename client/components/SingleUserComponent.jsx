@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import {fetchUser, putStatus } from '../store/user';
+import {fetchUser, putStatus } from '../store/singleUser';
 
 
 /**
@@ -18,23 +18,24 @@ class SingleUserComponent extends Component {
 
   componentDidMount() {
 
-    this.props.getUser(this.props.userName);
+    this.props.getUser(this.props.match.params.userName);
   }
 
   onSubmit()
   {
-      this.props.changeStatus('true', this.props.userName);
+      this.props.changeStatus(this.props.match.params.userName);
   }
 
 
   render() {
-    const { user } = this.props;
 
+    const { user } = this.props;
+  
     return (
       <div>
-        <h1>{user.userName}</h1> 
-        {/* //did we use username? not name */}
-        <h2>{user.email}</h2>
+        <h2>User Details</h2>
+        <h3>{user.userName}</h3>
+        <h3>{user.email}</h3>
         <button onClick={this.onSubmit}>isAdmin</button>
       </div>
     );
@@ -46,7 +47,7 @@ class SingleUserComponent extends Component {
  */
 const mapState = state => {
   return {
-    user: state.user
+    user: state.singleUser
   };
 };
 
@@ -55,8 +56,8 @@ const mapDispatch = dispatch => {
     getUser: (userName) => {
       dispatch(fetchUser(userName));
     },
-    changeStatus: (status, userName) => {
-        dispatch(putStatus(status, userName))
+    changeStatus: (userName) => {
+        dispatch(putStatus(userName))
     }
   };
 };
