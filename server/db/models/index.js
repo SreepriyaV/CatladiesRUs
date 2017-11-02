@@ -9,10 +9,13 @@ Reviews.belongsTo(User);
 Reviews.belongsTo(Cats);
 User.hasMany(Reviews);
 Cats.hasMany(Reviews);
+LineItem.belongsTo(Cats);
+LineItem.belongsTo(Orders);
 
 module.exports = {
   Orders,
   Cats,
   Reviews,
-  User
+  User,
+  LineItem
 };
