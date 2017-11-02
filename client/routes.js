@@ -1,19 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Router } from "react-router";
-import { Route, Switch } from "react-router-dom";
-import PropTypes from "prop-types";
-import history from "./history";
-import {
-  Main,
-  Login,
-  Signup,
-  UserHome,
-  AllCatsComponent,
-  SingleUserComponent,
-  Cart
-} from "./components";
-import { me } from "./store";
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Router} from 'react-router'
+import {Route, Switch} from 'react-router-dom'
+import PropTypes from 'prop-types'
+import history from './history'
+import {Main, Login, Signup, UserHome, AllCatsComponent, SingleCat, SingleUserComponent, Cart} from './components'
+import {me} from './store'
+
 
 /**
  * COMPONENT
@@ -31,11 +24,13 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+
             <Route
               path={'/users/user/:userName'}
               component={SingleUserComponent}
             />
-            <Route path="/cats" component={AllCatsComponent} />
+            <Route exact path="/cats" component={AllCatsComponent} />
+            <Route exact path="/cats/:catId" component={SingleCat} />
             <Route path="/cart" component={Cart} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />

@@ -9,3 +9,5 @@ export {default as Cart} from './Cart.jsx'
 export {Login, Signup} from './auth-form'
 export { default as AllCatsComponent} from './AllCatsComponent'
 export { default as SingleUserComponent} from './SingleUserComponent.jsx'
+export { default as SingleCat} from './SingleCat.jsx'
+
