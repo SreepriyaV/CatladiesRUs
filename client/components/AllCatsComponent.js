@@ -93,10 +93,10 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-
       getCats: () => {
-        return dispatch(fetchCats())
+        return dispatch(fetchCats());
       }
-  }
-}
+  };
+};
+
 export default connect(mapState, mapDispatch)(AllCatsComponent);
