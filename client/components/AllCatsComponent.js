@@ -1,12 +1,13 @@
 "use strict";
-import React,{Component} from "react";
-import {withRouter, Link} from 'react-router-dom'
+import React, { Component } from "react";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {fetchCats} from "../store/cats";
+import { fetchCats } from "../store/cats";
 
 class AllCatsComponent extends Component {
   constructor(props) {
     super(props);
+
     //this.onSelectSubmit = this.onSelectSubmit.bind(this);
   }
 
@@ -29,6 +30,7 @@ class AllCatsComponent extends Component {
         </Link> 
           <h4>Price: {cat.price}</h4>
         </li>)}
+
         </ul>
 
         <div>
