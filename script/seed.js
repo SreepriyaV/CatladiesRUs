@@ -235,32 +235,27 @@ var data = {
   orders: [
     {
       userId: 1,
-      cart: [4, 8],
-      status: 'Completed',
+      status: 'Created',
       totalPrice: 37
     },
     {
       userId: 2,
-      cart: [9, 11, 6],
-      status: 'Processing',
+      status: 'Shipped',
       totalPrice: 37
     },
     {
       userId: 3,
-      cart: [5],
-      status: 'Created',
+      status: 'Delivered',
       totalPrice: 37
     },
     {
       userId: 1,
-      cart: [3, 3],
       status: 'Created',
       totalPrice: 37
     },
     {
       userId: 2,
-      cart: [10, 13],
-      status: 'Completed',
+      status: 'Cancelled',
       totalPrice: 37
     }
   ],
