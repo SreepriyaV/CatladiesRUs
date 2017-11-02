@@ -2,11 +2,9 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Orders = db.define("orders", {
-  cart: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-  },
   status: {
-    type: Sequelize.ENUM('Created',  'Processing', 'Cancelled', 'Completed')
+    type: Sequelize.ENUM('Created', 'Shipped', 'Delivered', 'Cancelled'),
+    defaultValue: 'Created'
   },
   totalPrice:{
     type: Sequelize.DECIMAL(12,2)

@@ -9,6 +9,7 @@ const Reviews = db.define("reviews", {
   stars: {
     type: Sequelize.INTEGER
   }
+ 
 });
 
 module.exports = Reviews;
