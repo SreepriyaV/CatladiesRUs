@@ -2,7 +2,7 @@
 import React,{Component} from "react";
 import {withRouter, Link} from 'react-router-dom'
 import { connect } from "react-redux";
-import {fetchOneCat} from "../store/oneCat-reducer";
+import {fetchOneCat} from "../store";
 
 class SingleCat extends React.Component {
   constructor(props) {

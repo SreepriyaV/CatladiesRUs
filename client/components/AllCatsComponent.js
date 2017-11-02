@@ -4,12 +4,6 @@ import {withRouter, Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {fetchCats} from '../store/reducers/cats';
 
- /*
-component local state: { hairLength: '',  profession: ''}
-componentDidMount: loads all cats in redux store, which "connect" passes down as props
-render: 
- */
-
 class AllCatsComponent extends Component {
   
   constructor(props) {
@@ -74,19 +68,20 @@ class AllCatsComponent extends Component {
         </fieldset>
 
         {/* MAKE A CLEAR FILTERS BUTTON */}
-
-        <ul>{ cats.map( cat => 
-        <li key={cat.id}>
-        <Link to={`/cats/${cat.id}`}>
-          <img src={cat.image} alt="cats" height="200"/>
-          <h4> {cat.name} </h4>
-        </Link> 
-          <h4>Price: {cat.price}</h4>
-        </li>)}
+      
+        <ul>{ cats.map( cat => (
+          <li key={cat.id}>
+            <Link to={`/cats/${cat.id}`}>
+              <img src={cat.image} alt="cats" height="200"/>
+              <h4> {cat.name} </h4>
+            </Link>
+            <h4>Price: {cat.price}</h4>
+            </li>
+            ))}
         </ul>
       </div>
-    )  
-  }     
+    );
+  }
 }
 
 //CONTAINER
