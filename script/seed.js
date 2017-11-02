@@ -235,12 +235,12 @@ var data = {
   orders: [
     {
       userId: 1,
-      status: 'Completed',
+      status: 'Delivered',
       totalPrice: 562.04 + 478.08
     },
     {
       userId: 2,
-      status: 'Processing',
+      status: 'Shipped',
       totalPrice: 841.09 + 1048.11 + 850.06
     },
     {
@@ -256,7 +256,7 @@ var data = {
     {
       userId: 2,
       cart: [10, 13],
-      status: 'Completed',
+      status: 'Delivered',
       totalPrice: 2.10 + 451.13
     }
   ],
@@ -264,55 +264,55 @@ var data = {
     {
       orderId: 1,
       catId: 4,
-      quanitity: 1,
+      quantity: 1,
       purchasePrice: 562.04
     },
     {
       orderId: 1,
       catId: 8,
-      quanitity: 1,
+      quantity: 1,
       purchasePrice: 478.08
     },
     {
       orderId: 2,
       catId: 9,
-      quanitity: 1,
+      quantity: 1,
       purchasePrice: 841.09
     },
     {
       orderId: 2,
       catId: 11,
-      quanitity: 1,
+      quantity: 1,
       purchasePrice: 1048.11
     },
     {
       orderId: 2,
       catId: 6,
-      quanitity: 1,
+      quantity: 1,
       purchasePrice: 850.06
     },
     {
       orderId: 3,
       catId: 5,
-      quanitity: 1,
+      quantity: 1,
       purchasePrice: 496.05
     },
     {
       orderId: 4,
       catId: 3,
-      quanitity: 2,
+      quantity: 2,
       purchasePrice: 496.05
     },
     {
       orderId: 5,
       catId: 10,
-      quanitity: 1,
+      quantity: 1,
       purchasePrice: 2.10
     },
     {
       orderId: 5,
       catId: 13,
-      quanitity: 1,
+      quantity: 1,
       purchasePrice: 451.13
     }
   ],
@@ -361,12 +361,14 @@ async function seed () {
   const users = await Promise.all(data.user.map(user => User.create(user)))
   const orders = await Promise.all(data.orders.map(order => Orders.create(order)))
   const reviews = await Promise.all(data.reviews.map(review => Reviews.create(review)))
+  const carts = await Promise.all(data.carts.map(cart => Carts.create(cart)))
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${catters.length} cats`)
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${orders.length} orders`)
   console.log(`seeded ${reviews.length} reviews`)
+  console.log(`seeded ${carts.length} carts`)
   console.log(`seeded successfully`)
 }
 
