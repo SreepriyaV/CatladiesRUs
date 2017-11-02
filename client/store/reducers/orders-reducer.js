@@ -13,8 +13,7 @@ const getOrders = orders => ({type: GET_ORDERS, orders})
 export const fetchOrders = (userId) =>
   dispatch =>
     axios.get(`/api/orders/${userId}`)
-      .then(res =>
-        dispatch(getOrders(res.data)))
+      .then(res => dispatch(getOrders(res.data)))
       .catch(err => console.log(err))
 
 //REDUCER
