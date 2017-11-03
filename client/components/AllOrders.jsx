@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {fetchOrders} from '../store/reducers/orders-reducer';
 import {fetchCarts} from '../store/reducers/cart-reducer';
 import {fetchUser} from '../store/reducers/singleUser';
+import {fetchCats} from '../store/reducers/cats';
 
 class AllOrders extends Component {
   
@@ -19,38 +20,54 @@ class AllOrders extends Component {
     this.props.getCartItems();
     this.props.getOrders(this.state.userId);
     this.props.getUser(this.state.userId);
+    this.props.getCats();
   }
 
   render() {
     const {orders} = this.props;
     const {cart} = this.props;
-    const {user} = this.props;
+    const {singleUser} = this.props;
+    const {cats} = this.props;
     console.log("props", this.props);
-    console.log("cart", cart);
-    console.log("user", user);
-    //const cartOrder = this.props.cart.filter(cart => cart.orderId === order.id)
+    console.log("user", singleUser);
 
     return (
       <div>
-        <h2> {this.state.userId}'s Purchases are: </h2>
+        <h1> {singleUser.userName}'s Purchases are: </h1>
         { orders.map( order => (
           <ul key={order.id}>
-            Order #{order.id}:
-  
-            { cart.map( cart => 
-            // we need to ge the carts of  SPECIFIC ORDER
-            // we have : orderid 
-            
-            
-            { if(cart.orderId == order.id) {
-              <ul key={cart.id}> 
-                Cart #: {cart.orderId}
-              </ul>
+            <h3> Order #{order.id}: </h3>
+
+            { cart.map( (cart,i) => {
+              if(order.id === cart.orderId) {
+                return (
+                <ul key={i}> 
+                  {/* Cat #: {cart.catId} */}
+
+                  { cats.map( (cat) => {
+                    if(cat.id === cart.catId) {
+                      return (
+                      <ul key={cat.id}>
+                        <h4> {cat.name} </h4>
+                        <img src={cat.image} alt="cats" height="300"/>
+                      </ul>  
+                      )
+                    }
+                  })}
+
+                </ul> 
+                )
             }
             })}
-
+            <br />
             <li> Total Cost: {order.totalPrice} </li>
-            <li> Status: {order.status} </li>
+            <li> Status: {order.status} 
+            
+              {  (order.status == "Delivered") ? " to "+singleUser.address : null }
+            
+            </li>
+
+            <br />
           </ul>
         ))}
       </div>
@@ -63,7 +80,8 @@ const mapState = state => {
   return {
     orders: state.orders,
     cart: state.cart,
-    user: state.user
+    singleUser: state.singleUser,
+    cats: state.cats
   };
 };
 
@@ -72,11 +90,14 @@ const mapDispatch = dispatch => {
       getOrders: (userId) => {
         return dispatch(fetchOrders(userId));
       },
-      getCartItems: (orderId) => {
-        return dispatch(fetchCarts(orderId));
+      getCartItems: () => {
+        return dispatch(fetchCarts());
       },
-      getUser: (username) => {
-        return dispatch(fetchUser(username));
+      getUser: (userId) => {
+        return dispatch(fetchUser(userId));
+      },
+      getCats: () => {
+        return dispatch(fetchCats());
       }
   };
 };

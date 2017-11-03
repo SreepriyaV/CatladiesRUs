@@ -14,7 +14,7 @@ const defaultSingleUser = {};
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({ type: GET_SINGLE_USER, user });
+const getUser = singleUser => ({ type: GET_SINGLE_USER, singleUser });
 
 //const changeUserStatus = status => ({type: CHANGE_STATUS, status})
 
@@ -39,7 +39,7 @@ export const putStatus = (userName) => dispatch =>
 export default function(state = defaultSingleUser, action) {
   switch (action.type) {
     case GET_SINGLE_USER:
-      return action.user;
+      return action.singleUser;
     default:
       return state;
   }
