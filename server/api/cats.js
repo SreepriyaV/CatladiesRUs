@@ -13,3 +13,4 @@ router.get('/:catId', (req, res, next) => {
     .then(cat => res.json(cat))
     .catch(next)
 })
+
