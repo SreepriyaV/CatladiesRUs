@@ -36,8 +36,9 @@ class AllOrders extends Component {
         <h1> {singleUser.userName}'s Purchases are: </h1>
         { orders.map( order => (
           <ul key={order.id}>
+            <Link to={`/orders/users/${order.id}`}>
             <h3> Order #{order.id}: </h3>
-
+            </Link>
             { cart.map( (cart,i) => {
               if(order.id === cart.orderId) {
                 return (
