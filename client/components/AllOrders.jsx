@@ -17,8 +17,8 @@ class AllOrders extends Component {
   
   componentDidMount() {
     this.props.getCartItems();
-    this.props.getOrders(this.state.userId)
-    this.props.getUser(this.state.userId)
+    this.props.getOrders(this.state.userId);
+    this.props.getUser(this.state.userId);
   }
 
   render() {
@@ -37,7 +37,12 @@ class AllOrders extends Component {
           <ul key={order.id}>
             Order #{order.id}:
   
-            { cart.map( cart => { if(cart.orderId == order.id) {
+            { cart.map( cart => 
+            // we need to ge the carts of  SPECIFIC ORDER
+            // we have : orderid 
+            
+            
+            { if(cart.orderId == order.id) {
               <ul key={cart.id}> 
                 Cart #: {cart.orderId}
               </ul>
@@ -67,8 +72,8 @@ const mapDispatch = dispatch => {
       getOrders: (userId) => {
         return dispatch(fetchOrders(userId));
       },
-      getCartItems: () => {
-        return dispatch(fetchCarts());
+      getCartItems: (orderId) => {
+        return dispatch(fetchCarts(orderId));
       },
       getUser: (username) => {
         return dispatch(fetchUser(username));

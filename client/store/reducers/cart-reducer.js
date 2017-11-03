@@ -6,7 +6,7 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
 const DELETE_CAT = 'DELETE_CAT'
 
-const GET_CART_ITEMS = 'GET_CART_ITEMS'
+const GET_USER_CART_ITEMS = 'GET_USER_CART_ITEMS'
 
 //INITIAL STATE
 const defaultCart = []
@@ -16,14 +16,14 @@ export const addToCart = cat => ({type: ADD_TO_CART, cat})
 export const updateQuantity = (newCart) => ({type: UPDATE_QUANTITY, newCart})
 export const deleteCat = newCart => ({type: DELETE_CAT, newCart})
 
-export const getCartItems = carts => ({type: GET_CART_ITEMS, carts})
+export const getUserCartItems = carts => ({type: GET_USER_CART_ITEMS, carts})
 
 //THUNK CREATORS
-export const fetchCarts = () =>
+export const fetchCarts = (orderId) =>
 dispatch =>
-  axios.get('/api/carts')
+  axios.get(`/api/carts/${orderId}`)
     .then(res =>
-      dispatch(getCartItems(res.data)))
+      dispatch(getUserCartItems(res.data)))
     .catch(err => console.log(err))
 
 //REDUCER
@@ -36,7 +36,7 @@ export default function (state = defaultCart, action) {
     case DELETE_CAT:
       return action.newCart;
 
-    case GET_CART_ITEMS:
+    case GET_USER_CART_ITEMS:
       return action.carts;
       
     default:
