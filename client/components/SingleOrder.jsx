@@ -4,44 +4,60 @@ import {withRouter, Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {fetchSingleOrder} from '../store/reducers/orders-reducer';
 import {fetchUserCart} from '../store/reducers/cart-reducer';
-//import {fetchUser} from '../store/reducers/singleUser';
-//import {fetchCats} from '../store/reducers/cats';
+import {fetchCats} from '../store/reducers/cats';
+import { putStatus } from '../store/singleUser';
 
 class SingleOrder extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      orderId: Number(this.props.match.params.orderId),
-      //userId: Number(this.props.match.params.userId)
+      orderId: Number(this.props.match.params.orderId)
     }
+    this.onSubmit=this.onSubmit.bind(this);
   }
   
   componentDidMount() {
     this.props.getOneCartItems(this.state.orderId);
     this.props.getOneOrder(this.state.orderId);
-    //this.props.getUser(this.state.userId);
-    //this.props.getCats();
+    this.props.getCats();
+  }
+
+  onSubmit() {
+    this.props.changeStatus(this.props.match.params.userName);
   }
 
   render() {
-    const {singleOrder} = this.props;
+    const {orders} = this.props;
     const {cart} = this.props;
-    //const {singleUser} = this.props;
-    //const {cats} = this.props;
-    console.log("props", this.props);
-    console.log("order", singleOrder);
-    console.log("cart", cart);
-    //console.log("user", singleUser);
+    const {cats} = this.props;
 
     return (
       <div>
-        <h1> Order # has: </h1>
+        <h1> Order #{orders.id} has: </h1>
         { cart.map( (cart,i) => {
-            <ul key={i}>
-            Cat #: {cart.catId}
-            </ul>
+            return (
+                <ul key={i}> 
+
+                { cats.map( (cat) => {
+                    if(cat.id === cart.catId) {
+                      return (
+                      <ul key={cat.id}>
+                        <h4> {cat.name} </h4>
+                        <img src={cat.image} alt="cats" height="300"/>
+                      </ul>  
+                      )
+                    }
+                  })}
+                    
+                </ul>
+              )
         })}
+        <h4> Total price: {orders.totalPrice} </h4>
+        Status: {orders.status}
+          &nbsp;&nbsp;&nbsp;
+          {  (orders.status != "Delivered") ? <button onClick={this.onSubmit}>Delivered</button> : null }
+
       </div>
     );
   }
@@ -50,10 +66,9 @@ class SingleOrder extends Component {
 //CONTAINER
 const mapState = state => {
   return {
-    singleOrder: state.singleOrder,
+    orders: state.orders,
     cart: state.cart,
-    //singleUser: state.singleUser,
-    //cats: state.cats
+    cats: state.cats
   };
 };
 
@@ -62,15 +77,15 @@ const mapDispatch = dispatch => {
       getOneOrder: (orderId) => {
         return dispatch(fetchSingleOrder(orderId));
       },
-       getOneCartItems: (orderId) => {
+      getOneCartItems: (orderId) => {
         return dispatch(fetchUserCart(orderId));
       }, 
-      /* getUser: (userId) => {
-        return dispatch(fetchUser(userId));
-      }, */
-/*       getCats: () => {
+      getCats: () => {
         return dispatch(fetchCats());
-      } */
+      },
+      changeStatus: (userName) => {
+        return dispatch(putStatus(userName));
+    }
   };
 };
 

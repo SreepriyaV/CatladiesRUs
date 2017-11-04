@@ -29,7 +29,7 @@ class AllOrders extends Component {
     const {singleUser} = this.props;
     const {cats} = this.props;
     console.log("props", this.props);
-    console.log("user", singleUser);
+    console.log("orders", orders);
 
     return (
       <div>
@@ -50,7 +50,7 @@ class AllOrders extends Component {
                       return (
                       <ul key={cat.id}>
                         <h4> {cat.name} </h4>
-                        <img src={cat.image} alt="cats" height="300"/>
+                        <img src={cat.image} alt="cats" height="100"/>
                       </ul>  
                       )
                     }

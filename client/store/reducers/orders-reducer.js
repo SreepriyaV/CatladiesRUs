@@ -24,6 +24,12 @@ export const fetchSingleOrder = (orderId) =>
       .then(res => dispatch(getOneOrder(res.data)))
       .catch(err => console.log(err))
 
+export const changeStatus = (orderId) => 
+  dispatch =>
+    axios.put(`/api/orders/users/${orderId}`)
+    .then(res => dispatch(getOneOrder(res.data)))
+    .catch(err => console.log(err));
+
 //REDUCER
 export default function (state = defaultOrders, action) {
   switch (action.type) {
