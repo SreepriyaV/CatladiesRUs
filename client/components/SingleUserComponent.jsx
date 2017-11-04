@@ -5,25 +5,20 @@ import { connect } from 'react-redux';
 import {fetchUser, putStatus } from '../store/reducers/singleUser';
 
 
-/**
- * COMPONENT
- */
+//COMPONENT
 class SingleUserComponent extends Component {
   constructor(props) {
     super(props);
-
     this.onSubmit=this.onSubmit.bind(this);
 
   }
 
   componentDidMount() {
-
     this.props.getUser(this.props.match.params.userName);
   }
 
-  onSubmit()
-  {
-      this.props.changeStatus(this.props.match.params.userName);
+  onSubmit(){
+    this.props.changeStatus(this.props.match.params.userName);
   }
 
 
@@ -42,9 +37,7 @@ class SingleUserComponent extends Component {
   }
 }
 
-/**
- * CONTAINER
- */
+//CONTAINER
 const mapState = state => {
   return {
     user: state.singleUser

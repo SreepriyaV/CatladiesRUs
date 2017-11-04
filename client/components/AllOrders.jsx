@@ -29,21 +29,21 @@ class AllOrders extends Component {
     const {singleUser} = this.props;
     const {cats} = this.props;
     console.log("props", this.props);
-    console.log("user", singleUser);
+    console.log("orders", orders);
 
     return (
-      
       <div>
         <h1> {singleUser.userName}'s Purchases are: </h1>
         { orders.map( order => (
           <div key={order.id}>
+            <Link to={`/orders/users/${order.id}`}>
             <h3> Order #{order.id}: </h3>
+            </Link>
 
             { cart.map( (cart,i) => {
               if(order.id === cart.orderId) {
                 return (
                 <ul key={i}> 
-                  {/* Cat #: {cart.catId} */}
 
                   { cats.map( (cat) => {
                     if(cat.id === cart.catId) {
@@ -64,12 +64,13 @@ class AllOrders extends Component {
             })}
 
             <br />
-            &nbsp;&nbsp;&nbsp;<h4> Total Cost: {order.totalPrice} </h4>
-            <h4> Status: {order.status} 
-              { (order.status == "Delivered") ? " to "+singleUser.address : null }
-            </h4>
-
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Total Cost: {order.totalPrice}
             <br />
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Status: {order.status} 
+              { (order.status == "Delivered") ? " to "+singleUser.address : null }
+            <br /><br /><br /><br /><br /><br />
           </div>
         ))}
       </div>
