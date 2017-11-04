@@ -32,10 +32,11 @@ class AllOrders extends Component {
     console.log("user", singleUser);
 
     return (
+      
       <div>
         <h1> {singleUser.userName}'s Purchases are: </h1>
         { orders.map( order => (
-          <ul key={order.id}>
+          <div key={order.id}>
             <h3> Order #{order.id}: </h3>
 
             { cart.map( (cart,i) => {
@@ -47,30 +48,32 @@ class AllOrders extends Component {
                   { cats.map( (cat) => {
                     if(cat.id === cart.catId) {
                       return (
-                      <ul key={cat.id}>
-                        <h4> {cat.name} </h4>
-                        <img src={cat.image} alt="cats" height="300"/>
-                      </ul>  
+                      <orderstyle>  
+                      <div key={cat.id}>
+                        <h4 id="orderstyleid"> {cat.name} </h4>
+                        <img src={cat.image} alt="cats" height="100" />
+                      </div>  
+                      </orderstyle>
                       )
                     }
                   })}
 
                 </ul> 
                 )
-            }
+              }
             })}
-            <br />
-            <li> Total Cost: {order.totalPrice} </li>
-            <li> Status: {order.status} 
-            
-              {  (order.status == "Delivered") ? " to "+singleUser.address : null }
-            
-            </li>
 
             <br />
-          </ul>
+            &nbsp;&nbsp;&nbsp;<h4> Total Cost: {order.totalPrice} </h4>
+            <h4> Status: {order.status} 
+              { (order.status == "Delivered") ? " to "+singleUser.address : null }
+            </h4>
+
+            <br />
+          </div>
         ))}
       </div>
+      
     );
   }
 }
