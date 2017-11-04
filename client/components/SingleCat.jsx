@@ -11,46 +11,50 @@ class SingleCat extends React.Component {
     this.handleGetCart = this.handleGetCart.bind(this)
   }
 
+  
+
   componentDidMount () {
     const catId = this.props.match.params.catId;
     this.props.getOneCat(catId);
-    if (localStorage.cart) {
-      const cart = JSON.parse(localStorage.getItem('cart'))
-      this.props.loadLocalCart(cart)
-    }
+    // if (localStorage.cart) {
+    //   const cart = JSON.parse(localStorage.getItem('cart'))
+    //   this.props.loadLocalCart(cart)
+    // }
+    
     // I DONT KNOW HOW TO PUT THE CURRENT USER IN THE LOCAL STATE
   }
 
-  handleGetCart = () => {
-    const cart = JSON.parse(localStorage.getItem('cart'))
-    this.props.loadLocalCart(cart)
-    console.log(this.props.cart)
+  componentWillReceiveProps (nextProps) {
+    //to add our cart to localstorege
+    
+    const currentCart= this.props.cart;
+    console.log("currentCart",currentCart)
+    const nextCart= nextProps.cart; //what it will be when it changes  // array  //[]
+console.log("nextCart",nextCart)
+   
+  const  strigifyCart = currentCart.length < nextCart.length ? JSON.stringify(nextCart) :  JSON.stringify(currentCart)
+  console.log("strigifyCart", strigifyCart)
+   //captures the value of what we will put in local storage 
+      localStorage.setItem('cart', strigifyCart)
+
+    // if (currentCart.length < nextCart.length) // after the chnage of the status 
+    //   {
+    //     const cart = JSON.parse(localStorage.getItem('cart'))
+    //     this.props.loadLocalCart(cart)
+    //   }
   }
+ 
+
+  // handleGetCart = () => {
+  //   const cart = JSON.parse(localStorage.getItem('cart'))
+  //   this.props.loadLocalCart(cart)
+  //   console.log(this.props.cart)
+  // }
 
   handleAddCat = (cat) => {
-    // const catId = cat.id;
-    // const catName = cat.name;
-    // const price = cat.price;
-    // const quantity = 1;
-    const strigifyCart = JSON.stringify(this.props.cart)
-
-            // update Qty if product is already present
-            // for (var i in cart) {
-            //     if(cart[i].Product == name)
-            //     {
-            //         cart[i].Qty = qty;  // replace existing Qty
-            //         showCart();
-            //         saveCart();
-            //         return;
-            //     }
-            // }
-
+ 
     this.props.addCatToCart(cat);
-    localStorage.setItem('cart', strigifyCart)
-            // var item = { CatId: catId, Cat: catName, Price: price, Quantity: quantity };
-            // cart.push(item);
-            // saveCart();
-            // showCart();
+
         }
 
   render () {
@@ -76,7 +80,7 @@ class SingleCat extends React.Component {
             <h4>Profession: { cat.profession } </h4>
             <br />
             <h4>Price: { cat.price } </h4>
-            <button > Get Cart </button >
+            {/* <button > Get Cart </button > */}
             <button > Add to Cart </button >
         </div>
 
