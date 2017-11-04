@@ -35,43 +35,46 @@ class AllOrders extends Component {
       <div>
         <h1> {singleUser.userName}'s Purchases are: </h1>
         { orders.map( order => (
-          <ul key={order.id}>
+          <div key={order.id}>
             <Link to={`/orders/users/${order.id}`}>
             <h3> Order #{order.id}: </h3>
             </Link>
+
             { cart.map( (cart,i) => {
               if(order.id === cart.orderId) {
                 return (
                 <ul key={i}> 
-                  {/* Cat #: {cart.catId} */}
 
                   { cats.map( (cat) => {
                     if(cat.id === cart.catId) {
                       return (
-                      <ul key={cat.id}>
-                        <h4> {cat.name} </h4>
-                        <img src={cat.image} alt="cats" height="100"/>
-                      </ul>  
+                      <orderstyle>  
+                      <div key={cat.id}>
+                        <h4 id="orderstyleid"> {cat.name} </h4>
+                        <img src={cat.image} alt="cats" height="100" />
+                      </div>  
+                      </orderstyle>
                       )
                     }
                   })}
 
                 </ul> 
                 )
-            }
+              }
             })}
-            <br />
-            <li> Total Cost: {order.totalPrice} </li>
-            <li> Status: {order.status} 
-            
-              {  (order.status == "Delivered") ? " to "+singleUser.address : null }
-            
-            </li>
 
             <br />
-          </ul>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Total Cost: {order.totalPrice}
+            <br />
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            Status: {order.status} 
+              { (order.status == "Delivered") ? " to "+singleUser.address : null }
+            <br /><br /><br /><br /><br /><br />
+          </div>
         ))}
       </div>
+      
     );
   }
 }

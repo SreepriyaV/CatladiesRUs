@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {fetchSingleOrder} from '../store/reducers/orders-reducer';
 import {fetchUserCart} from '../store/reducers/cart-reducer';
 import {fetchCats} from '../store/reducers/cats';
-import { putStatus } from '../store/singleUser';
+import { putStatus } from '../store/reducers/singleUser';
 
 class SingleOrder extends Component {
   
@@ -33,11 +33,12 @@ class SingleOrder extends Component {
     const {cats} = this.props;
 
     return (
+      <orderstyle>
       <div>
         <h1> Order #{orders.id} has: </h1>
         { cart.map( (cart,i) => {
             return (
-                <ul key={i}> 
+                <div id="singleorderstyleid" key={i}> 
 
                 { cats.map( (cat) => {
                     if(cat.id === cart.catId) {
@@ -50,7 +51,7 @@ class SingleOrder extends Component {
                     }
                   })}
                     
-                </ul>
+                </div>
               )
         })}
         <h4> Total price: {orders.totalPrice} </h4>
@@ -59,6 +60,7 @@ class SingleOrder extends Component {
           {  (orders.status != "Delivered") ? <button onClick={this.onSubmit}>Delivered</button> : null }
 
       </div>
+      </orderstyle>
     );
   }
 }

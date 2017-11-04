@@ -31,6 +31,7 @@ class AllCatsComponent extends Component {
     const cats = (this.state.filteredCats.length) ? this.state.filteredCats : this.props.cats;
     console.log(cats)
     return (
+      <catstyle>
       <div>
         <fieldset>
           <legend>Hair Length</legend>
@@ -68,18 +69,19 @@ class AllCatsComponent extends Component {
         </fieldset>
 
         {/* MAKE A CLEAR FILTERS BUTTON */}
-      
-        <ul>{ cats.map( cat => (
-          <li key={cat.id}>
+        <br /> <br />
+        <div>{ cats.map( cat => (
+          <div id="catstyleid" key={cat.id}>
             <Link to={`/cats/${cat.id}`}>
-              <img src={cat.image} alt="cats" height="200"/>
+              <img src={cat.image} alt="cats" height="275" width="300" />
               <h4> {cat.name} </h4>
             </Link>
             <h4>Price: {cat.price}</h4>
-            </li>
+            </div>
             ))}
-        </ul>
+        </div>
       </div>
+      </catstyle>
     );
   }
 }
