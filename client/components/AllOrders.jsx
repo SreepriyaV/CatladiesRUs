@@ -29,15 +29,16 @@ class AllOrders extends Component {
     const {singleUser} = this.props;
     const {cats} = this.props;
     console.log("props", this.props);
-    console.log("user", singleUser);
+    console.log("orders", orders);
 
     return (
       <div>
         <h1> {singleUser.userName}'s Purchases are: </h1>
         { orders.map( order => (
           <ul key={order.id}>
+            <Link to={`/orders/users/${order.id}`}>
             <h3> Order #{order.id}: </h3>
-
+            </Link>
             { cart.map( (cart,i) => {
               if(order.id === cart.orderId) {
                 return (
@@ -49,7 +50,7 @@ class AllOrders extends Component {
                       return (
                       <ul key={cat.id}>
                         <h4> {cat.name} </h4>
-                        <img src={cat.image} alt="cats" height="300"/>
+                        <img src={cat.image} alt="cats" height="100"/>
                       </ul>  
                       )
                     }
