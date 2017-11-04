@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {withRouter, Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {fetchCats} from '../store/reducers/cats';
+import {addCatToCart} from '../store/reducers/cart-reducer';
 
 class AllCatsComponent extends Component {
   
@@ -12,11 +13,18 @@ class AllCatsComponent extends Component {
       filteredCats: []
     }
     this.handleChange = this.handleChange.bind(this);
+    this.addCatToCart=this.addCatToCart.bind(this);
   }
   
   componentDidMount() {
     console.log('component mounted')
     this.props.getCats()
+  }
+
+  addCatToCart(event)
+  {
+    event.preventDefault();
+    this.props.addCart();
   }
 
   handleChange(event) {
@@ -76,6 +84,7 @@ class AllCatsComponent extends Component {
               <h4> {cat.name} </h4>
             </Link>
             <h4>Price: {cat.price}</h4>
+            <button onClick={this.addCatToCart}>Add {cat.name} to you Cart!</button>
             </li>
             ))}
         </ul>
@@ -95,6 +104,9 @@ const mapDispatch = dispatch => {
   return {
       getCats: () => {
         return dispatch(fetchCats());
+      },
+      addCart:()=>{
+        return dispatch(addCatToCart())
       }
   };
 };

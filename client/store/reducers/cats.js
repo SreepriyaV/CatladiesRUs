@@ -1,4 +1,5 @@
 import axios from 'axios'
+window.axios=axios;
 
 //ACTION TYPES
 const GET_CATS = 'GET_CATS'

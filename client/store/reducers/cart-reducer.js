@@ -1,4 +1,4 @@
-//import axios from 'axios'
+import axios from 'axios'
 //import history from '../history'
 
 /**
@@ -35,3 +35,14 @@ export default function (state = cart, action) {
       return state
   }
 }
+
+/**
+ * THUNK
+ */
+
+ export function addCatToCart()
+ {
+   return (dispatch) => axios.put('/api/cart', {catId: 1, quantity: 1})
+   .then((res) => dispatch(addCatToCart(res.data)))
+   .catch(err => console.log(err))
+ }

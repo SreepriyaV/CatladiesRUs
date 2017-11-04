@@ -11,4 +11,15 @@ const Orders = db.define("orders", {
   }
 });
 
+
+Orders.cartForUser = function(user)
+{
+  console.log('im in cartForuse');
+ Orders.findOrCreate({where: {userId: user && user.id , status: 'Created'}})
+.then(([cart, wascreated])=>cart)
+  
+}
+
+
+
 module.exports = Orders;
