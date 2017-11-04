@@ -5,7 +5,7 @@ import axios from 'axios'
 const ADD_TO_CART = 'ADD_TO_CART'
 const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
 const DELETE_CAT = 'DELETE_CAT'
-
+const LOAD_CART = 'LOAD_CART'
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
 
 //INITIAL STATE
@@ -15,8 +15,8 @@ const defaultCart = []
 export const addToCart = cat => ({type: ADD_TO_CART, cat})
 export const updateQuantity = (newCart) => ({type: UPDATE_QUANTITY, newCart})
 export const deleteCat = newCart => ({type: DELETE_CAT, newCart})
-
 export const getCartItems = carts => ({type: GET_CART_ITEMS, carts})
+export const loadCart = (cart) => ({type: LOAD_CART, cart})
 
 //THUNK CREATORS
 export const fetchCarts = () =>
@@ -35,10 +35,10 @@ export default function (state = defaultCart, action) {
       return action.newCart;
     case DELETE_CAT:
       return action.newCart;
-
     case GET_CART_ITEMS:
       return action.carts;
-      
+    case LOAD_CART:
+      return action.cart;
     default:
       return state
   }
