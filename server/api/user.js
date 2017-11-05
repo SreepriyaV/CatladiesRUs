@@ -10,7 +10,7 @@ router.get('/:userName', (req, res, next) => {
 
 router.put('/:userName', (req, res, next) => {
   User.update(
-    { isAdmin: true },
+    { isAdmin: req.body.isAdmin },
     {
       where: { userName: req.params.userName },
       returning: true
