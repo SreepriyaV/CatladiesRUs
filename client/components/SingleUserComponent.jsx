@@ -9,17 +9,39 @@ import {fetchUser, putStatus } from '../store/reducers/singleUser';
 class SingleUserComponent extends Component {
   constructor(props) {
     super(props);
+
+       this.state = {
+     
+      status: false
+    };
+
     this.onSubmit=this.onSubmit.bind(this);
+     this.onSubmitNotAdmin=this.onSubmitNotAdmin.bind(this);
+
 
   }
 
   componentDidMount() {
-    this.props.getUser(this.props.match.params.userName);
+    //this.props.getUser(this.props.match.params.userName);
+
+   console.log(this.props) 
+   this.props.getUser(this.props.userName);
   }
 
   onSubmit(){
-    this.props.changeStatus(this.props.match.params.userName);
+    //this.props.changeStatus(this.props.match.params.userName);
+     event.preventDefault();
+     this.setState({  status: true });
+    this.props.changeStatus(this.props.userName, this.state.status);
+   
   }
+   onSubmitNotAdmin(){
+    //this.props.changeStatus(this.props.match.params.userName);
+     event.preventDefault();
+     this.setState({ status: false });
+    this.props.notadmin(this.props.userName, this.state.status );
+  }
+
 
 
   render() {
@@ -32,6 +54,7 @@ class SingleUserComponent extends Component {
         <h3>{user.userName}</h3>
         <h3>{user.email}</h3>
         <button onClick={this.onSubmit}>isAdmin</button>
+         <button onClick={this.onSubmitNotAdmin}>notAdmin</button>
       </div>
     );
   }
@@ -49,9 +72,14 @@ const mapDispatch = dispatch => {
     getUser: (userName) => {
       dispatch(fetchUser(userName));
     },
-    changeStatus: (userName) => {
-        dispatch(putStatus(userName))
-    }
+    changeStatus: (userName, status) => {
+        dispatch(putStatus(userName, status))
+     
+    },
+       notadmin: (userName, status) => {
+        
+        dispatch(putStatus(userName, status))
+    },
   };
 };
 export default connect(mapState, mapDispatch)(SingleUserComponent);
