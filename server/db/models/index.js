@@ -1,12 +1,12 @@
-const Orders = require("./orders");
-const Cats = require("./cats");
-const Reviews = require("./reviews");
-const User = require("./user");
-const Carts = require("./carts");
+const Orders = require('./orders');
+const Cats = require('./cats');
+const Reviews = require('./reviews');
+const User = require('./user');
+const Carts = require('./carts');
 
 Orders.belongsTo(User);
-Orders.belongsToMany(Cats, {through:Carts});
-Cats.belongsToMany(Orders, {through:Carts});
+Orders.belongsToMany(Cats, {through: Carts});
+Cats.belongsToMany(Orders, {through: Carts});
 
 Orders.belongsTo(User);
 User.hasMany(Orders);
