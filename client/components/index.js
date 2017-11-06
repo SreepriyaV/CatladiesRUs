@@ -12,3 +12,5 @@ export { default as SingleUserComponent} from './SingleUserComponent.jsx'
 export { default as SingleCat} from './SingleCat.jsx'
 export { default as AllOrders} from './AllOrders.jsx'
 export { default as SingleOrder} from './SingleOrder.jsx'
+export { default as UserManagementComponent} from './UserManagementComponent.jsx'
+
