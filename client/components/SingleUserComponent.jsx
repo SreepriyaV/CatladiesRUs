@@ -9,26 +9,23 @@ class SingleUserComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      status: false
-    };
 
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.userName !== nextProps.userName) {
-      this.props.getUser(nextProps.userName);
-    }
-  }
-  componentDidMount() {
-    this.props.getUser(this.props.userName);
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.userName !== nextProps.userName) {
+  //     this.props.getUser(nextProps.userName);
+  //   }
+  // }
+  // componentDidMount() {
+  //   this.props.getUser(this.props.userName);
+  // }
 
   onSubmit(event, adminStatus) {
     event.preventDefault();
 
-    this.props.changeStatus(this.props.userName, adminStatus);
+    this.props.changeStatus(this.props.user.userName, adminStatus);
   }
 
   render() {
@@ -59,21 +56,14 @@ class SingleUserComponent extends Component {
   }
 }
 
-//CONTAINER
-const mapState = state => {
-  return {
-    user: state.singleUser
-  };
-};
+
 
 const mapDispatch = dispatch => {
   return {
-    getUser: userName => {
-      dispatch(fetchUser(userName));
-    },
+  
     changeStatus: (userName, status) => {
       dispatch(putStatus(userName, status));
     }
   };
 };
-export default connect(mapState, mapDispatch)(SingleUserComponent);
+export default connect(null, mapDispatch)(SingleUserComponent);

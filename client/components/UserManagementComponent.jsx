@@ -2,26 +2,31 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import SingleUserComponent from "./SingleUserComponent.jsx";
+import { fetchUser, putStatus } from "../store/reducers/singleUser";
+import { connect } from "react-redux";
 
 //COMPONENT
-export default class UserManagementComponent extends Component {
+  class UserManagementComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      userName: ""
-    };
+   
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  
 
   onSubmit(event) {
     event.preventDefault();
 
-    this.setState({ userName: event.target.userName.value });
+      this.props.getUser(event.target.userName.value)
+    //this.setState({ userName: event.target.userName.value });
+
   }
 
   render() {
-    const { userName } = this.state;
+ 
+    const {user}= this.props;
 
     return (
       <div>
@@ -34,9 +39,27 @@ export default class UserManagementComponent extends Component {
           </div>
         </form>
 
-        {userName ? <SingleUserComponent userName={userName} /> : null}
+        {user.userName ? <SingleUserComponent user={user} /> : null}
        
       </div>
     );
   }
 }
+
+
+
+const mapState = state => {
+  return {
+    user: state.singleUser
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    getUser: userName => {
+      dispatch(fetchUser(userName));
+    }
+  }
+};
+
+export default connect(mapState, mapDispatch)(UserManagementComponent);
