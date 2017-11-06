@@ -5,32 +5,27 @@ import { connect } from "react-redux";
 import {fetchOneCat} from "../store";
 
 class SingleCat extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount () {
     const catId = this.props.match.params.catId;
     this.props.getOneCat(catId);
-    // I DONT KNOW HOW TO PUT THE CURRENT USER IN THE LOCAL STATE
   }
 
   render () {
     const { cat } = this.props;
-    console.log("cat props", this.props);
+    console.log("cat props", this.props); // TODO: remove debugging console.logs from master
     return (
     <div>
-        {/* <div className="className1">
+         {/* <div className="className1">
             { cat.quantity === 0 ?
                 <h2> OUT OF STOCK </h2>
                 : null
             }
-        </div> */}
+        </div>  */}
 
         <div>
             <img src={cat.image} alt="cats" height="300"/>
             <h2>{ cat.name }</h2>
-            <h4>About: { cat.description }</h4>
+            <h4>About: { cat.description }</h4> {/* TODO: change label from About to Description */}
             <h4>Breed: { cat.breed} </h4>
             <h4>Age: { cat.age } </h4>
             <h4>Color: { cat.color } </h4>
@@ -43,10 +38,11 @@ class SingleCat extends React.Component {
 
         {/* <div className="className1">
             { currentUser.name ?
-                <Review />
+                <AddReview />
                 : null
             }
         </div> */}
+        {/* <Reviews /> */}
     </div>
     );
   }

@@ -31,12 +31,20 @@ export const changeStatus = (orderId) =>
     .catch(err => console.log(err));
 
 //REDUCER
+/*
+  Violates Tom's First Law!
+  Either
+  1. make a separate reducer for selectedOrder
+  2. make this reducer have 2 properties: {
+    allOrders: [],
+    selectedOrder: {}
+  }
+  Reducer should have allOrders, selectedOrder
+*/
 export default function (state = defaultOrders, action) {
   switch (action.type) {
     case GET_ORDERS:
       return action.orders;
-    case GET_ONE_ORDER:
-      return action.singleOrder;
 
     default:
       return state

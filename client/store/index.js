@@ -17,7 +17,7 @@ const middleware = composeWithDevTools(applyMiddleware(
 const store = createStore(reducer, middleware)
 
 export default store
-export * from './reducers/user';
+export * from './reducers/user'; // TODO: change to "me"? or loggedInUser?
 export * from './reducers/cats';
 export * from './reducers/oneCat-reducer';
 export * from './reducers/cart-reducer'

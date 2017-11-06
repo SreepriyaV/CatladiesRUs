@@ -9,28 +9,15 @@ import { putStatus } from '../store/reducers/singleUser';
 
 class SingleOrder extends Component {
   
-  constructor(props) {
-    super(props);
-    this.state = {
-      orderId: Number(this.props.match.params.orderId)
-    }
-    this.onSubmit=this.onSubmit.bind(this);
-  }
-  
   componentDidMount() {
-    this.props.getOneCartItems(this.state.orderId);
-    this.props.getOneOrder(this.state.orderId);
-    this.props.getCats();
-  }
-
-  onSubmit() {
-    this.props.changeStatus(this.props.match.params.userName);
+    this.props.getOneOrder(this.props.match.params.orderId);
   }
 
   render() {
-    const {orders} = this.props;
-    const {cart} = this.props;
-    const {cats} = this.props;
+    // TODO: is this data necessary for this component?
+    // better to pass down the single order as a prop; or do a fetch specifically for that order
+
+    const orderId = Number(this.props.match.params.orderId)
 
     return (
       <orderstyle>
@@ -57,7 +44,7 @@ class SingleOrder extends Component {
         <h4> Total price: {orders.totalPrice} </h4>
         Status: {orders.status}
           &nbsp;&nbsp;&nbsp;
-          {  (orders.status != "Delivered") ? <button onClick={this.onSubmit}>Delivered</button> : null }
+          {  (orders.status != "Delivered") ? <button onClick={() => this.props.changeStatus(this.props.match.params.userName)}>Delivered</button> : null }
 
       </div>
       </orderstyle>
@@ -66,28 +53,26 @@ class SingleOrder extends Component {
 }
 
 //CONTAINER
-const mapState = state => {
+const mapState = (state, ownProps) => {
   return {
-    orders: state.orders,
-    cart: state.cart,
-    cats: state.cats
+    order: state.orders.filter(order => order.id === ownProps.match.params.orderId) // instead of fetching order again
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-      getOneOrder: (orderId) => {
+      getOrder: (orderId) => {
         return dispatch(fetchSingleOrder(orderId));
       },
-      getOneCartItems: (orderId) => {
-        return dispatch(fetchUserCart(orderId));
-      }, 
-      getCats: () => {
-        return dispatch(fetchCats());
-      },
-      changeStatus: (userName) => {
-        return dispatch(putStatus(userName));
-    }
+    //   getOneCartItems: (orderId) => {
+    //     return dispatch(fetchUserCart(orderId));
+    //   }, 
+    //   getCats: () => {
+    //     return dispatch(fetchCats()); // TODO: unnecessary fetch
+    //   },
+    //   changeStatus: (userName) => {
+    //     return dispatch(putStatus(userName)); // TODO: why is this function taking in a username? wouldn't it need an order's id?
+    // }
   };
 };
 

@@ -4,7 +4,6 @@ import axios from "axios";
  * ACTION TYPES
  */
 const GET_SINGLE_USER = 'GET_SINGLE_USER';
-//const CHANGE_STATUS = 'CHANGE_STATUS'
 
 /**
  * INITIAL STATE
@@ -15,8 +14,6 @@ const defaultSingleUser = {};
  * ACTION CREATORS
  */
 const getUser = user => ({ type: GET_SINGLE_USER, user });
-
-//const changeUserStatus = status => ({type: CHANGE_STATUS, status})
 
 /**
  * THUNK CREATORS
@@ -29,7 +26,7 @@ export const fetchUser = (userId) => dispatch =>
 
 export const putStatus = (userId) => dispatch =>
   axios
-    .put(`/api/users/${userId}`)
+    .put(`/api/users/${userId}`) // TODO: should this be sending additional data?
     .then(res => dispatch(getUser(res.data)))
     .catch(err => console.log(err));
 

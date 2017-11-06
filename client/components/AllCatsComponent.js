@@ -51,6 +51,7 @@ class AllCatsComponent extends Component {
 
   render() {
 
+    // TODO: make filtering form its own component
     const cats = (this.state.filteredCats.length) ? this.state.filteredCats : this.props.cats;
     console.log(cats)
     return (

@@ -32,8 +32,9 @@ class Routes extends Component {
             <Route path="/cart" component={Cart} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route exact path="/orders/:userId" component={AllOrders} />
-            <Route exact path="/orders/users/:orderId" component={SingleOrder} />
+            {/* TODO: update routes to be a little clearer on ids (may need to update thunks' urls) */}
+            <Route exact path="/users/:userId/orders" component={AllOrders} />
+            <Route exact path="/users/:userId/orders/:orderId" component={SingleOrder} />
             {isLoggedIn && (
               <Switch>
                 {/* Routes placed here are only available after logging in */}

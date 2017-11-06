@@ -7,6 +7,8 @@ import {fetchCarts} from '../store/reducers/cart-reducer';
 import {fetchUser} from '../store/reducers/singleUser';
 import {fetchCats} from '../store/reducers/cats';
 
+// TODO/suggestion: use this for both admin functionality and "My Account" functionality
+
 class AllOrders extends Component {
   
   constructor(props) {
@@ -92,16 +94,16 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
       getOrders: (userId) => {
-        return dispatch(fetchOrders(userId));
+        return dispatch(fetchOrders(userId)); // TODO: fix eager loading for cartItems?
       },
       getCartItems: () => {
-        return dispatch(fetchCarts());
+        return dispatch(fetchCarts()); // TODO: is this server request necessary?
       },
       getUser: (userId) => {
         return dispatch(fetchUser(userId));
       },
       getCats: () => {
-        return dispatch(fetchCats());
+        return dispatch(fetchCats()); // TODO: unnecessary fetch
       }
   };
 };

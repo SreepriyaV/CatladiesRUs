@@ -8,6 +8,12 @@ Orders.belongsTo(User);
 Orders.belongsToMany(Cats, {through: Carts});
 Cats.belongsToMany(Orders, {through: Carts});
 
+/*
+One order hasMany lineItems (aka carts)
+lineItems belongTo order
+
+*/
+
 Orders.belongsTo(User);
 User.hasMany(Orders);
 Reviews.belongsTo(User);
