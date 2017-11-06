@@ -9,25 +9,43 @@ import {removeCat} from '../store'
  */
 class Cart extends Component {
 
-    //Maybe this isn't necessary
-    // constructor(props){
-    //     super(props);
-    //     this.getSubtotal = this.getSubtotal.bind(this);
-    // }
-
-    // handleRemove = (event) => {
-        //this function is for a different issue
-    // }
+    constructor(props){
+        super(props);
+        this.state = {
+            quantity: []
+        }
+        this.decreaseQuantity = this.decreaseQuantity.bind(this)
+        this.increaseQuantity = this.increaseQuantity.bind(this)
+    }
 
     getSubtotal = (array) => {
         let total = 0
-        array.forEach(cat => {total += cat.price})
-        return total
+        array.forEach(cat => {
+            total += Number(cat.price)
+        })
+        return total.toFixed(2)
+    }
+
+    decreaseQuantity(event) {
+        const key = Number(event.target.value);
+        const quantity = (this.state.quantity.length) ? this.state.quantity : this.props.quantity
+        const newQuantity = quantity.map((el, i) => { return ((i === key) ? --el : el)})
+        this.setState({quantity: newQuantity})
+    }
+
+    increaseQuantity(event) {
+        const key = Number(event.target.value);
+        const quantity = (this.state.quantity.length) ? this.state.quantity : this.props.quantity
+        const newQuantity = quantity.map((el, i) => { return ((i === key) ? ++el : el)})
+        console.log('key', typeof key)
+        console.log('newQuantity', newQuantity)
+        this.setState({quantity: newQuantity})
     }
 
     render () {
         const cart = this.props.cart
-        console.log(cart)
+        let quantity = (this.state.quantity.length) ? this.state.quantity : this.props.quantity
+        //console.log(quantity)
         return (
           <div>
             <h3>Your Cart</h3>
@@ -37,9 +55,9 @@ class Cart extends Component {
                         <h3>{cat.name}</h3>
                         <img src={cat.image} />
                         <h4>{cat.price}</h4>
-                        {/* <button>-</button>
-                        <p>{quantity}</p>
-                        <button>+</button> */}
+                        <button value={index} onClick={this.decreaseQuantity} disabled={quantity[index] === 0}>-</button>
+                        <p>{quantity[index]}</p>
+                        <button value={index} onClick={this.increaseQuantity} disabled={quantity[index] === cat.quantity}>+</button>
                         <button onClick={() => this.props.removeCatFromCart(cat, this.props.cart)}>Remove Cat from Cart</button>
                     </div>
                     )
@@ -62,7 +80,14 @@ class Cart extends Component {
 /**
  * CONTAINER
  */
-const mapState = ({cart}) => ({cart})
+const mapState = ({cart}) => {
+    let quantities = []
+    cart.forEach(cat => {quantities.push(1)})
+    return {
+        cart,
+        quantity: quantities
+    }
+}
 
 const mapDispatch = dispatch => {
     return {
