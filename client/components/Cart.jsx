@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {removeCat} from '../store'
 
 /**
  * COMPONENT
@@ -30,13 +31,16 @@ class Cart extends Component {
         return (
           <div>
             <h3>Your Cart</h3>
-            <div>{cart.map(cat => {
+            <div>{cart.map((cat, index) => {
                     return (
-                    <div key={cat.id}>
+                    <div key={index}>
                         <h3>{cat.name}</h3>
                         <img src={cat.image} />
                         <h4>{cat.price}</h4>
-                        <button disabled={true}>Remove Cat from Cart</button>
+                        {/* <button>-</button>
+                        <p>{quantity}</p>
+                        <button>+</button> */}
+                        <button onClick={() => this.props.removeCatFromCart(cat, this.props.cart)}>Remove Cat from Cart</button>
                     </div>
                     )
                 }
@@ -60,8 +64,16 @@ class Cart extends Component {
  */
 const mapState = ({cart}) => ({cart})
 
+const mapDispatch = dispatch => {
+    return {
+        removeCatFromCart: (cat, cart) => {
+            dispatch(removeCat(cat, cart))
+        }
+    }
+}
 
-export default connect(mapState)(Cart)
+
+export default connect(mapState, mapDispatch)(Cart)
 
 // /**
 //  * PROP TYPES

@@ -35,6 +35,13 @@ dispatch =>
       dispatch(getUserCart(res.data)))
     .catch(err => console.log(err))
 
+export const removeCat = (catToRemove, cart) =>
+      dispatch => {
+        const newCart = cart.filter(cat => cat.id !== catToRemove.id)
+        dispatch(deleteCat(newCart))
+      }
+        
+
 //REDUCER
 export default function (state = defaultCart, action) {
   switch (action.type) {
@@ -44,7 +51,6 @@ export default function (state = defaultCart, action) {
       return action.newCart;
     case DELETE_CAT:
       return action.newCart;
-
     case GET_CART_ITEMS:
       return action.carts;
     case GET_USER_CART:
