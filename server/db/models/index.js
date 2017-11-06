@@ -9,8 +9,10 @@ Orders.belongsToMany(Cats, {through: Carts});
 Cats.belongsToMany(Orders, {through: Carts});
 
 /*
-One order hasMany lineItems (aka carts)
-lineItems belongTo order
+Order hasMany Carts
+Carts belongTo Orders
+
+Carts belongTo Cats
 
 */
 

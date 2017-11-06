@@ -39,7 +39,8 @@ export const changeStatus = (orderId) =>
     allOrders: [],
     selectedOrder: {}
   }
-  Reducer should have allOrders, selectedOrder
+
+  return Object.assign({}, state, {selectedOrder: ...})
 */
 export default function (state = defaultOrders, action) {
   switch (action.type) {
