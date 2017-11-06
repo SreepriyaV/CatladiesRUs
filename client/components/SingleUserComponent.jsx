@@ -8,62 +8,41 @@ import { fetchUser, putStatus } from "../store/reducers/singleUser";
 class SingleUserComponent extends Component {
   constructor(props) {
     super(props);
-
-
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.userName !== nextProps.userName) {
-  //     this.props.getUser(nextProps.userName);
-  //   }
-  // }
-  // componentDidMount() {
-  //   this.props.getUser(this.props.userName);
-  // }
-
   onSubmit(event, adminStatus) {
     event.preventDefault();
-
     this.props.changeStatus(this.props.user.userName, adminStatus);
   }
 
   render() {
     const { user } = this.props;
 
-
     return (
       <div>
-        <h2>User Details</h2>
-        <h3>{user.userName}</h3>
-        <h3>{user.email}</h3>
-        <button
-          onClick={() => {
+        <h1>User Details</h1>
+        <h3>Username: {user.userName}</h3>
+        <h3>User email: {user.email}</h3>
+        <button onClick={() => {
             this.onSubmit(event, true);
           }}
-        >
-          isAdmin
-        </button>
-        <button
-          onClick={() => {
+        > Make An Admin </button>
+        <button onClick={() => {
             this.onSubmit(event, false);
           }}
-        >
-          notAdmin
-        </button>
+        > Remove As Admin </button>
       </div>
     );
   }
 }
 
-
-
 const mapDispatch = dispatch => {
   return {
-  
     changeStatus: (userName, status) => {
       dispatch(putStatus(userName, status));
     }
   };
 };
+
 export default connect(null, mapDispatch)(SingleUserComponent);
