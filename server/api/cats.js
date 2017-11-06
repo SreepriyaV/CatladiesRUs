@@ -11,6 +11,6 @@ router.get('/', (req, res, next) => {
 router.get('/:catId', (req, res, next) => {
   Cats.findById(req.params.catId)
     .then(cat => res.json(cat))
-    .catch(next)
+    .catch((err) => res.sendStatus(404, err) )
 })
 
