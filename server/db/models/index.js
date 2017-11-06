@@ -5,8 +5,15 @@ const User = require('./user');
 const Carts = require('./carts');
 
 Orders.belongsTo(User);
-Orders.belongsToMany(Cats, {through: Carts});
-Cats.belongsToMany(Orders, {through: Carts});
+
+Orders.belongsTo(Cats);
+Cats.belongsTo(Orders);
+Carts.belongsTo(Orders)
+Orders.hasMany(Carts);
+Carts.belongsTo(Cats)
+
+//Orders.belongsToMany(Cats, {through: Carts});
+//Cats.belongsToMany(Orders, {through: Carts});
 
 /*
 Order hasMany Carts
