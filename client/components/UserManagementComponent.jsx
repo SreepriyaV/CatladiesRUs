@@ -9,21 +9,20 @@ export default class UserManagementComponent extends Component {
     super(props);
 
     this.state = {
-      userName: "",
-      clicked: false
+      userName: ""
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit(event) {
     event.preventDefault();
-    console.log("event", event.target.userName.value);
-    this.setState({ userName: event.target.userName.value, clicked: true });
+
+    this.setState({ userName: event.target.userName.value });
   }
 
   render() {
     const { userName } = this.state;
-    console.log("UN", userName);
+
     return (
       <div>
         <form onSubmit={this.onSubmit}>
@@ -34,13 +33,9 @@ export default class UserManagementComponent extends Component {
             <button>search</button>
           </div>
         </form>
-        {/* 
-          <div>
-             <Link to ={`/users/user/${userName}`}>{userName}</Link> 
-            </div> */}
 
         {userName ? <SingleUserComponent userName={userName} /> : null}
-        {console.log("userfrom usermgmt", userName)}
+       
       </div>
     );
   }
