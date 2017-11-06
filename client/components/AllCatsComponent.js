@@ -5,15 +5,23 @@ import { connect } from 'react-redux';
 import {fetchCats} from '../store/reducers/cats';
 
 class AllCatsComponent extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
-      filteredCats: []
+      filteredCats: [],
+      short: false,
+      medium: false,
+      long: false,
+      dramaQueen: false,
+      howler: false,
+      spazzer: false,
+      other: false
     }
     this.handleChange = this.handleChange.bind(this);
+    this.clearFilters = this.clearFilters.bind(this);
   }
-  
+
   componentDidMount() {
     console.log('component mounted')
     this.props.getCats()
@@ -23,7 +31,22 @@ class AllCatsComponent extends Component {
     const target = event.target;
     const key = target.name === 'hairLength' ? 'hairLength' : 'profession'
     const newState = this.props.cats.filter(cat => cat[key] === target.value)
-    this.setState({filteredCats: newState})
+    const checkbox = target.id
+    const checked = target.checked
+    this.setState({filteredCats: newState, [checkbox]: checked})
+  }
+
+  clearFilters() {
+    this.setState({
+      filteredCats: [],
+      short: false,
+      medium: false,
+      long: false,
+      dramaQueen: false,
+      howler: false,
+      spazzer: false,
+      other: false
+    })
   }
 
   render() {
@@ -36,35 +59,38 @@ class AllCatsComponent extends Component {
         <fieldset>
           <legend>Hair Length</legend>
             <div>
-              <input id="short" name="hairLength" value="short" type="checkbox" onChange={this.handleChange} />
+              <input id="short" name="hairLength" value="short" type="checkbox" checked={this.state.short} onChange={this.handleChange} />
               <label htmlFor="short">Short</label>
             </div>
             <div>
-              <input id="medium" name="hairLength" value="medium" type="checkbox" onChange={this.handleChange} />
+              <input id="medium" name="hairLength" value="medium" type="checkbox" checked={this.state.medium} onChange={this.handleChange} />
               <label htmlFor="medium">Medium</label>
             </div>
             <div>
-              <input id="long" name="hairLength" value="long" type="checkbox" onChange={this.handleChange} />
+              <input id="long" name="hairLength" value="long" type="checkbox" checked={this.state.long} onChange={this.handleChange} />
               <label htmlFor="long">Long</label>
             </div>
         </fieldset>
         <fieldset>
           <legend>Profession</legend>
             <div>
-              <input id="Drama-Queen" name="profession" value="Drama-Queen" type="checkbox" onChange={this.handleChange} />
-              <label htmlFor="Drama-Queen">Drama Queen</label>
+              <input id="dramaQueen" name="profession" value="drama-Queen" type="checkbox" checked={this.state.dramaQueen} onChange={this.handleChange} />
+              <label htmlFor="dramaQueen">Drama Queen</label>
             </div>
             <div>
-              <input id="Howler" name="profession" value="Howler" type="checkbox" onChange={this.handleChange} />
-              <label htmlFor="Howler">Howler</label>
+              <input id="howler" name="profession" value="Howler" type="checkbox" checked={this.state.howler} onChange={this.handleChange} />
+              <label htmlFor="howler">Howler</label>
             </div>
             <div>
-              <input id="Spazzer" name="profession" value="Spazzer" type="checkbox" onChange={this.handleChange} />
-              <label htmlFor="Spazzer">Spazzer</label>
+              <input id="spazzer" name="profession" value="Spazzer" type="checkbox" checked={this.state.spazzer} onChange={this.handleChange} />
+              <label htmlFor="spazzer">Spazzer</label>
             </div>
             <div>
-              <input id="Other" name="profession" value="Other" type="checkbox" onChange={this.handleChange} />
-              <label htmlFor="Other">Other</label>
+              <input id="other" name="profession" value="Other" type="checkbox" checked={this.state.other} onChange={this.handleChange} />
+              <label htmlFor="other">Other</label>
+            </div>
+            <div>
+              <input type="reset" value="Clear the Filters" onClick={this.clearFilters} />
             </div>
         </fieldset>
 
