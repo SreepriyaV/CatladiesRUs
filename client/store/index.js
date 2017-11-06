@@ -22,7 +22,7 @@ const defaultState = {
   singleUser: {},
   orders: []
 }
-console.log('localStorage', localStorage.getItem('state'))
+
 const store = createStore(reducer, JSON.parse(localStorage.getItem('state')) || defaultState, middleware)
 //
 
