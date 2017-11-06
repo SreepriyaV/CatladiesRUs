@@ -4,31 +4,20 @@ const Reviews = require('./reviews');
 const User = require('./user');
 const Carts = require('./carts');
 
-Orders.belongsTo(User);
 
-Orders.belongsTo(Cats);
-Cats.belongsTo(Orders);
+
+Orders.belongsTo(User)
+User.hasMany(Orders)
+User.hasMany(Reviews)
+Reviews.belongsTo(User)
+Reviews.belongsTo(Cats);
+Cats.hasMany(Reviews)
+Orders.hasMany(Carts)
 Carts.belongsTo(Orders)
-Orders.hasMany(Carts);
 Carts.belongsTo(Cats)
 
-//Orders.belongsToMany(Cats, {through: Carts});
-//Cats.belongsToMany(Orders, {through: Carts});
 
-/*
-Order hasMany Carts
-Carts belongTo Orders
 
-Carts belongTo Cats
-
-*/
-
-Orders.belongsTo(User);
-User.hasMany(Orders);
-Reviews.belongsTo(User);
-Reviews.belongsTo(Cats);
-User.hasMany(Reviews);
-Cats.hasMany(Reviews);
 
 module.exports = {
   Orders,
