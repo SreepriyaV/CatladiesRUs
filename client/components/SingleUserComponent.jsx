@@ -21,10 +21,20 @@ class SingleUserComponent extends Component {
 
   }
 
+  // componentWillReceiveProps(nextProps)
+  // {
+
+  //   if(this.props !== nextProps )
+  //     {
+  //       console.log("nextprops",nextProps )
+  //       nextProps.getUser(nextProps.userName);
+  //     }
+
+  // }
   componentDidMount() {
     //this.props.getUser(this.props.match.params.userName);
 
-   console.log(this.props) 
+   console.log("propsuser",this.props) 
    this.props.getUser(this.props.userName);
   }
 
@@ -71,7 +81,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
+
     getUser: (userName) => {
+      console.log("im in mapdispatch");
       dispatch(fetchUser(userName));
     },
     changeStatus: (userName, status) => {
