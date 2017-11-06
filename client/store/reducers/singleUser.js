@@ -30,7 +30,7 @@ export const fetchUser = (userName) => dispatch =>
 export const putStatus = (userName,isAdmin) => dispatch =>
   axios
     .put(`/api/users/user/${userName}`, {isAdmin})
-    .then(res => dispatch(getUser(res.data)))
+    .then(res => dispatch(getUser(res.data[1][0]))) //getting updated data
     .catch(err => console.log(err));
 
     

@@ -23,7 +23,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are available to all visitors */}
               <Route exact path="/users/user/Admin" component={UserManagementComponent} />
-               {/* <Route  exact path="/users/user/:userName" component={SingleUserComponent} />   */}
+              
             <Route exact path="/cats" component={AllCatsComponent} />
             <Route exact path="/cats/:catId" component={SingleCat} />
             <Route path="/cart" component={Cart} />

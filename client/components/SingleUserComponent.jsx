@@ -1,72 +1,59 @@
-'use strict';
-import React, { Component } from 'react';
+"use strict";
+import React, { Component } from "react";
 
-import { connect } from 'react-redux';
-import {fetchUser, putStatus } from '../store/reducers/singleUser';
-
+import { connect } from "react-redux";
+import { fetchUser, putStatus } from "../store/reducers/singleUser";
 
 //COMPONENT
 class SingleUserComponent extends Component {
   constructor(props) {
     super(props);
 
-       this.state = {
-     
+    this.state = {
       status: false
     };
 
-    this.onSubmit=this.onSubmit.bind(this);
-     this.onSubmitNotAdmin=this.onSubmitNotAdmin.bind(this);
-
-
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  // componentWillReceiveProps(nextProps)
-  // {
-
-  //   if(this.props !== nextProps )
-  //     {
-  //       console.log("nextprops",nextProps )
-  //       nextProps.getUser(nextProps.userName);
-  //     }
-
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.userName !== nextProps.userName) {
+      this.props.getUser(nextProps.userName);
+    }
+  }
   componentDidMount() {
-    //this.props.getUser(this.props.match.params.userName);
-
-   console.log("propsuser",this.props) 
-   this.props.getUser(this.props.userName);
+    this.props.getUser(this.props.userName);
   }
 
-  onSubmit(){
-   
-     event.preventDefault();
-      //this.props.changeStatus(this.props.match.params.userName);
-     this.setState({  status: true });
-    this.props.changeStatus(this.props.userName, this.state.status);
-   
-  }
-   onSubmitNotAdmin(){
-  //  this.props.changeStatus(this.props.match.params.userName);
-     event.preventDefault();
-     this.setState({ status: false });
-    this.props.notadmin(this.props.userName, this.state.status );
-  }
+  onSubmit(event, adminStatus) {
+    event.preventDefault();
 
-
+    this.props.changeStatus(this.props.userName, adminStatus);
+  }
 
   render() {
-
     const { user } = this.props;
-    console.log("user", user);
-  
+
+
     return (
       <div>
         <h2>User Details</h2>
         <h3>{user.userName}</h3>
         <h3>{user.email}</h3>
-        <button onClick={this.onSubmit}>isAdmin</button>
-         <button onClick={this.onSubmitNotAdmin}>notAdmin</button>
+        <button
+          onClick={() => {
+            this.onSubmit(event, true);
+          }}
+        >
+          isAdmin
+        </button>
+        <button
+          onClick={() => {
+            this.onSubmit(event, false);
+          }}
+        >
+          notAdmin
+        </button>
       </div>
     );
   }
@@ -81,19 +68,12 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-
-    getUser: (userName) => {
-      console.log("im in mapdispatch");
+    getUser: userName => {
       dispatch(fetchUser(userName));
     },
     changeStatus: (userName, status) => {
-        dispatch(putStatus(userName, status))
-     
-    },
-       notadmin: (userName, status) => {
-        
-        dispatch(putStatus(userName, status))
-    },
+      dispatch(putStatus(userName, status));
+    }
   };
 };
 export default connect(mapState, mapDispatch)(SingleUserComponent);
