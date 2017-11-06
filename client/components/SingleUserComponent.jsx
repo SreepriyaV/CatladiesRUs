@@ -29,14 +29,15 @@ class SingleUserComponent extends Component {
   }
 
   onSubmit(){
-    //this.props.changeStatus(this.props.match.params.userName);
+   
      event.preventDefault();
+      //this.props.changeStatus(this.props.match.params.userName);
      this.setState({  status: true });
     this.props.changeStatus(this.props.userName, this.state.status);
    
   }
    onSubmitNotAdmin(){
-    //this.props.changeStatus(this.props.match.params.userName);
+  //  this.props.changeStatus(this.props.match.params.userName);
      event.preventDefault();
      this.setState({ status: false });
     this.props.notadmin(this.props.userName, this.state.status );
@@ -47,6 +48,7 @@ class SingleUserComponent extends Component {
   render() {
 
     const { user } = this.props;
+    console.log("user", user);
   
     return (
       <div>
