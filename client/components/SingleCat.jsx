@@ -30,7 +30,7 @@ class SingleCat extends React.Component {
     const currentCart= this.props.cart;
     console.log("currentCart",currentCart)
     const nextCart= nextProps.cart; //what it will be when it changes  // array  //[]
-console.log("nextCart",nextCart)
+    console.log("nextCart",nextCart)
    
   const  strigifyCart = currentCart.length < nextCart.length ? JSON.stringify(nextCart) :  JSON.stringify(currentCart)
   console.log("strigifyCart", strigifyCart)
