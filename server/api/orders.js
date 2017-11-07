@@ -13,14 +13,15 @@ router.get('/:userId', (req, res, next) => {
     where: { userId: req.params.userId }
   })
     .then(order => res.json(order))
-    .catch(next);
-});
+    .catch((err)=> res.sendStatus(404,err))
+})
+
 
 router.get('/:userId/:orderId', (req, res, next) => {
   Orders.findById(req.params.orderId)
     .then(order => res.json(order))
-    .catch(next);
-});
+   .catch((err)=> res.sendStatus(404,err))
+})
 
 router.post('/', (req, res, next) => {
   Orders.create({ totalPrice: req.body.totalPrice, userId: req.body.userId })
@@ -44,3 +45,4 @@ router.post('/', (req, res, next) => {
     .then(order => res.json(order))
     .catch(next);
 });
+

@@ -16,14 +16,19 @@
     "start": "node server",
     "start-dev": "npm run build-client-watch & npm run start-server",
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public",
-    "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/CatladiesRUs' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register"
+    "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/CatladiesRUs' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register",
+    "test-routes": "mocha  ./server/**/*.spec.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.15.3",
     "babel-eslint": "^8.0.1",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.16.1",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-things": "^0.2.0",
     "child_process": "^1.0.2",
     "compression": "^1.7.1",
     "connect-session-sequelize": "^4.1.0",
@@ -50,6 +55,7 @@
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.3.1",
     "socket.io": "^2.0.3",
+    "supertest": "^3.0.0"
     "tls": "0.0.1"
   },
   "devDependencies": {
