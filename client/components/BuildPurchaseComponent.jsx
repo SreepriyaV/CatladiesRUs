@@ -16,7 +16,6 @@ class BuildPurchaseComponent extends Component {
       email: ''
     };
     this.onHandleChange = this.onHandleChange.bind(this);
-   // this.sendMail = this.sendMail.bind(this);
   }
 
 sendMail(email)

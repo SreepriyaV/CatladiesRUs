@@ -68,7 +68,7 @@ class Cart extends Component {
                 <h3>{subtotal}</h3>
             </div>
             <div>
-                <Link to="#">
+                <Link to="/cart/purchase">
                     <button type="submit" onClick={() => this.handlePurchase(cart, quantity, subtotal, userId)}>Continue To Checkout</button>
                 </Link>
             </div>
