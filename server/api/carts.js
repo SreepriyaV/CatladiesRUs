@@ -13,3 +13,11 @@ router.get('/:orderId', (req, res, next) => {
     .then(order => res.json(order))
     .catch(next)
 })
+
+router.post('/', (req, res, next) => {
+  Carts.create({
+    quantity: req.body.quantity,
+    purchasePrice: req.body.purchasePrice})
+  .then(cart => res.json(cart.data))
+  .catch(next)
+})

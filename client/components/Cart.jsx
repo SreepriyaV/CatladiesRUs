@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {removeCat} from '../store'
+import {removeCat, createCart, createNewOrder} from '../store'
 
 /**
  * COMPONENT
@@ -36,16 +36,27 @@ class Cart extends Component {
         this.setState({quantity: newQuantity})
     }
 
-    handlePurchase(quantityArray, cart) {
-        cart.forEach((cat, idx) => {
-            this.props.createLineItem(cat, quantityArray[idx])
+    handlePurchase(cart, quantityArray, totalPrice) {
+        console.log('cart', cart)
+        console.log('quantityArray', quantityArray)
+        console.log('totalPrice', totalPrice)
+        this.props.startOrder(totalPrice)
+        .then(order => order.id)
+        .then(orderId => {
+            cart.forEach((cat, idx) => {
+                this.props.createLineItem(cat, quantityArray[idx])
+                .then(lineItem => {
+                    lineItem.setCatId(cat.id)
+                    lineItem.setOrderId(orderId)
+                })
+            })
         })
     }
 
     render () {
         const cart = this.props.cart
         let quantity = (this.state.quantity.length) ? this.state.quantity : this.props.quantity
-        //console.log(quantity)
+        let subtotal = this.getSubtotal(cart, quantity)
         return (
           <div>
             <h3>Your Cart</h3>
@@ -65,11 +76,11 @@ class Cart extends Component {
             )}</div>
             <div>
                 <h3>Subtotal:</h3>
-                <h3>{this.getSubtotal(cart, quantity)}</h3>
+                <h3>{subtotal}</h3>
             </div>
             <div>
                 <Link to="#">
-                    <button type="submit" onSubmit={() => this.handlePurchase(quantity, cart)} disabled={true}>Continue To Checkout</button>
+                    <button type="submit" onSubmit={() => this.handlePurchase(cart, quantity, subtotal)}>Continue To Checkout</button>
                 </Link>
             </div>
           </div>
@@ -96,6 +107,9 @@ const mapDispatch = dispatch => {
         },
         createLineItem: (cat, quantity) => {
             dispatch(createCart(cat, quantity))
+        },
+        startOrder: (totalPrice) => {
+            dispatch(createNewOrder(totalPrice))
         }
     }
 }

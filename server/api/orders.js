@@ -21,3 +21,9 @@ router.get('/:userId/:orderId', (req, res, next) => {
     .then(order => res.json(order))
     .catch(next)
 })
+
+router.post('/', (req, res, next) => {
+  Orders.create(req.body)
+  .then(order => res.json(order))
+  .catch(next)
+})
