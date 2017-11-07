@@ -4,11 +4,8 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-<<<<<<< HEAD
-import {Main, Login, Signup, UserHome, AllCatsComponent, SingleCat, SingleUserComponent, Cart, AllOrders, SingleOrder, BuildPurchaseComponent, ThankYou} from './components'
-=======
-import {Main, Login, Signup, UserHome, AllCatsComponent, SingleCat, SingleUserComponent, Cart, AllOrders, SingleOrder, UserManagementComponent} from './components'
->>>>>>> master
+
+import {Main, Login, Signup, UserHome, AllCatsComponent, SingleCat, SingleUserComponent, Cart, AllOrders, SingleOrder, UserManagementComponent,BuildPurchaseComponent, ThankYou} from './components'
 import {me} from './store'
 
 
