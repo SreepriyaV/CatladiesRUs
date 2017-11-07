@@ -165,7 +165,7 @@ var data = {
       description: 'Twin sisters who are virtually indistinguishable and also gay',
       breed: 'American Shorthair',
       age: 19,
-      color: 'WHite',
+      color: 'White',
       hairLength: 'short',
       profession: 'Howler',
       price: 948.14,

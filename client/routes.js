@@ -1,13 +1,26 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import history from './history'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Router } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import history from './history';
 
-import {Main, Login, Signup, UserHome, AllCatsComponent, SingleCat, SingleUserComponent, Cart, AllOrders, SingleOrder,UserManagementComponent, BuildPurchaseComponent, ThankYou} from './components'
-import {me} from './store'
-
+import {
+  Main,
+  Login,
+  Signup,
+  UserHome,
+  AllCatsComponent,
+  SingleCat,
+  SingleUserComponent,
+  Cart,
+  AllOrders,
+  SingleOrder,
+  UserManagementComponent,
+  BuildPurchaseComponent,
+  ThankYou
+} from './components';
+import { me } from './store';
 
 //COMPONENT
 class Routes extends Component {
@@ -23,21 +36,33 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-              <Route exact path="/purchase/ThankYou" component={ThankYou}/>
-            <Route exact path="/cart/purchase" component={BuildPurchaseComponent}/>
+            <Route exact path="/purchase/ThankYou" component={ThankYou} />
+            <Route
+              exact
+              path="/cart/purchase"
+              component={BuildPurchaseComponent}
+            />
             <Route
               path={'/users/user/:userName'}
               component={SingleUserComponent}
             />
-              <Route exact path="/users/user/Admin" component={UserManagementComponent} />
-              
+            <Route
+              exact
+              path="/users/user/Admin"
+              component={UserManagementComponent}
+            />
+
             <Route exact path="/cats" component={AllCatsComponent} />
             <Route exact path="/cats/:catId" component={SingleCat} />
             <Route path="/cart" component={Cart} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/orders/:userId" component={AllOrders} />
-            <Route exact path="/orders/users/:orderId" component={SingleOrder} />
+            <Route
+              exact
+              path="/orders/users/:orderId"
+              component={SingleOrder}
+            />
             {isLoggedIn && (
               <Switch>
                 {/* Routes placed here are only available after logging in */}

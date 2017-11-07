@@ -1,44 +1,42 @@
-'use strict';
+"use strict";
 
-
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import ThankYou from './ThankYou.js'
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import ThankYou from "./ThankYou.js";
+import { connect } from "react-redux";
 
 //COMPONENT
 class BuildPurchaseComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      address: '',
-      email: ''
+      name: "",
+      address: "",
+      email: ""
     };
     this.onHandleChange = this.onHandleChange.bind(this);
   }
 
-sendMail(email)
-{
-    const message = 'Your order has been confirmed. Thank You for shopping with us. ';
-    const subject = 'Order Confirmation';
-    document.location.href = `mailto:${email}?subject=`
-        + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(message);
-
-}
-
+  sendMail(email) {
+    const message =
+      "Your order has been confirmed. Thank You for shopping with us. ";
+    const subject = "Order Confirmation";
+    document.location.href =
+      `mailto:${email}?subject=` +
+      encodeURIComponent(subject) +
+      "&body=" +
+      encodeURIComponent(message);
+  }
 
   onHandleChange(event) {
     event.preventDefault();
-    console.log(event.target.name.value);
     this.setState({
       name: event.target.name.value,
       address: event.target.address.value,
       email: event.target.email.value
     });
     this.sendMail(event.target.email.value);
-   this.props.history.push('/purchase/ThankYou');
+    this.props.history.push("/purchase/ThankYou");
   }
   render() {
     const { user } = this.props;
@@ -84,7 +82,6 @@ sendMail(email)
                 type="cardnumber"
                 name="cardnumber"
                 placeholder="xxxx-xxxx-xxxx-xxxx"
-            
               />
             </div>
 
@@ -95,18 +92,16 @@ sendMail(email)
                 type="expirationdate"
                 name="expirationdate"
                 placeholder="MM / YY"
-            
               />
             </div>
 
-             <label className="label">CVC</label>
+            <label className="label">CVC</label>
             <div className="control">
               <input
                 className="input"
                 type="CVC"
                 name="CVC"
                 placeholder="CVC"
-            
               />
             </div>
 
@@ -131,13 +126,5 @@ const mapState = state => {
     user: state.user
   };
 };
-
-// const mapDispatch = dispatch => {
-//   return {
-//       getCats: () => {
-//         return dispatch(fetchCats());
-//       }
-//   };
-// };
 
 export default connect(mapState, null)(BuildPurchaseComponent);

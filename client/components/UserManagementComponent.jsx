@@ -15,11 +15,11 @@ class UserManagementComponent extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.getUser(event.target.userName.value)
+    this.props.getUser(event.target.userName.value);
   }
 
   render() {
-    const {user}= this.props;
+    const { user } = this.props;
     return (
       <div>
         <form onSubmit={this.onSubmit}>
@@ -30,15 +30,16 @@ class UserManagementComponent extends Component {
             <button>search</button>
           </div>
         </form>
-        { user ? 
-          (<div>
+        {user ? (
+          <div>
             {user.userName ? <SingleUserComponent user={user} /> : null}
             {user.userName ? <AllOrders user={user} /> : null}
-          </div>) :
-          (<div>
+          </div>
+        ) : (
+          <div>
             <h3>User does not exist</h3>
-          </div>)
-        }
+          </div>
+        )}
       </div>
     );
   }
@@ -52,10 +53,10 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getUser: (userName) => {
+    getUser: userName => {
       dispatch(fetchUser(userName));
     }
-  }
+  };
 };
 
 export default connect(mapState, mapDispatch)(UserManagementComponent);
