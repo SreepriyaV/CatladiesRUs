@@ -1,10 +1,9 @@
 'use strict';
-//const nodemailer = require('nodemailer');
+
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ThankYou from './ThankYou.js'
-//import nodemailer from 'nodemailer';
 import { connect } from 'react-redux';
 
 //COMPONENT
