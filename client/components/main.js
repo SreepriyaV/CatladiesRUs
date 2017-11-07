@@ -35,7 +35,6 @@ const Main = (props) => {
           <div>
             <Link to="/cats">Cats</Link>
             <Link to="/cart">My Cart</Link>
-            <Link to="/cart/purchase">Build Purchase Component</Link>
           </div>
       </nav>
       <hr />
