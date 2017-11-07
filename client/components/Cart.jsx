@@ -36,6 +36,12 @@ class Cart extends Component {
         this.setState({quantity: newQuantity})
     }
 
+    handlePurchase(quantityArray, cart) {
+        cart.forEach((cat, idx) => {
+            this.props.createLineItem(cat, quantityArray[idx])
+        })
+    }
+
     render () {
         const cart = this.props.cart
         let quantity = (this.state.quantity.length) ? this.state.quantity : this.props.quantity
@@ -63,7 +69,7 @@ class Cart extends Component {
             </div>
             <div>
                 <Link to="#">
-                    <button disabled={true}>Continue To Checkout</button>
+                    <button type="submit" onSubmit={() => this.handlePurchase(quantity, cart)} disabled={true}>Continue To Checkout</button>
                 </Link>
             </div>
           </div>
@@ -87,6 +93,9 @@ const mapDispatch = dispatch => {
     return {
         removeCatFromCart: (cat, cart) => {
             dispatch(removeCat(cat, cart))
+        },
+        createLineItem: (cat, quantity) => {
+            dispatch(createCart(cat, quantity))
         }
     }
 }
