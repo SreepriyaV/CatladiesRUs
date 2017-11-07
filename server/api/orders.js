@@ -26,7 +26,25 @@ router.get('/:userId/:orderId', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  Orders.create(req.body)
+  console.log('req.body', req.body)
+  Orders.create({totalPrice: req.body.totalPrice, userId: req.body.userId})
+  .then(order => order.id)
+  .then(orderId => {
+    Carts.bulkCreate(req.body.cart.map((cat, index) => {
+      return {
+        quantity: req.body.quantity[index],
+        purchasePrice: cat.price,
+        catId: cat.id,
+        orderId: orderId
+      }
+    }))
+    console.log(orderId)
+    return orderId
+  })
+  .then(orderId => {
+    console.log('again', orderId)
+    return Orders.findById(orderId)
+  })
   .then(order => res.json(order))
   .catch(next)
 })

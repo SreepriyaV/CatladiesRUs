@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {removeCat, createCart, createNewOrder} from '../store'
+import {removeCat, createNewOrder} from '../store'
 
 /**
  * COMPONENT
@@ -15,6 +15,7 @@ class Cart extends Component {
             quantity: []
         }
         this.changeQuantity = this.changeQuantity.bind(this)
+        this.handlePurchase = this.handlePurchase.bind(this)
     }
 
     getSubtotal = (catArray, quantityArray) => {
@@ -36,27 +37,15 @@ class Cart extends Component {
         this.setState({quantity: newQuantity})
     }
 
-    handlePurchase(cart, quantityArray, totalPrice) {
-        console.log('cart', cart)
-        console.log('quantityArray', quantityArray)
-        console.log('totalPrice', totalPrice)
-        this.props.startOrder(totalPrice)
-        .then(order => order.id)
-        .then(orderId => {
-            cart.forEach((cat, idx) => {
-                this.props.createLineItem(cat, quantityArray[idx])
-                .then(lineItem => {
-                    lineItem.setCatId(cat.id)
-                    lineItem.setOrderId(orderId)
-                })
-            })
-        })
+    handlePurchase(cart, quantityArray, totalPrice, userId) {
+        this.props.startOrder(cart, quantityArray, totalPrice, userId)
     }
 
     render () {
         const cart = this.props.cart
         let quantity = (this.state.quantity.length) ? this.state.quantity : this.props.quantity
         let subtotal = this.getSubtotal(cart, quantity)
+        const userId = this.props.user.id || null
         return (
           <div>
             <h3>Your Cart</h3>
@@ -80,7 +69,7 @@ class Cart extends Component {
             </div>
             <div>
                 <Link to="#">
-                    <button type="submit" onSubmit={() => this.handlePurchase(cart, quantity, subtotal)}>Continue To Checkout</button>
+                    <button type="submit" onClick={() => this.handlePurchase(cart, quantity, subtotal, userId)}>Continue To Checkout</button>
                 </Link>
             </div>
           </div>
@@ -91,10 +80,11 @@ class Cart extends Component {
 /**
  * CONTAINER
  */
-const mapState = ({cart}) => {
+const mapState = ({cart, user}) => {
     let quantities = []
     cart.forEach(cat => {quantities.push(1)})
     return {
+        user,
         cart,
         quantity: quantities
     }
@@ -105,11 +95,8 @@ const mapDispatch = dispatch => {
         removeCatFromCart: (cat, cart) => {
             dispatch(removeCat(cat, cart))
         },
-        createLineItem: (cat, quantity) => {
-            dispatch(createCart(cat, quantity))
-        },
-        startOrder: (totalPrice) => {
-            dispatch(createNewOrder(totalPrice))
+        startOrder: (cart, quantity, totalPrice, userId) => {
+            dispatch(createNewOrder(cart, quantity, totalPrice, userId))
         }
     }
 }

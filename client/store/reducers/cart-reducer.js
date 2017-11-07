@@ -39,10 +39,6 @@ export const removeCat = (catToRemove, cart) =>
         dispatch(deleteCat(newCart))
       }
 
-export const createCart = (cat, quantity) => {
-  axios.post('/api/carts', {purchasePrice: cat.price, quantity: quantity})
-}
-
 //REDUCER
 export default function (state = defaultCart, action) {
   switch (action.type) {

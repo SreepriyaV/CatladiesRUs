@@ -12,10 +12,12 @@ export const loadOrder = (order) => ({type: LOAD_ORDER, order})
 const defaultCO = {}
 
 //THUNK CREATORS
-export const createNewOrder = (totalPrice) =>
+export const createNewOrder = (cart, quantity, totalPrice, userId) =>
     dispatch => {
-        axios.post('/api/orders', {totalPrice})
-        .then(res => dispatch(createOrder(res.data)))
+        axios.post('/api/orders', {totalPrice, cart, quantity, userId})
+        .then(res => {
+            dispatch(createOrder(res.data))
+        })
         .catch(err => console.error(err))
 
     }
