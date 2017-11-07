@@ -4,36 +4,27 @@ import {withRouter, Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {fetchOrders} from '../store/reducers/orders-reducer';
 import {fetchCarts} from '../store/reducers/cart-reducer';
-import {fetchUser} from '../store/reducers/singleUser';
-import {fetchCats} from '../store/reducers/cats';
 
-class AllOrders extends Component {
-  
-  constructor(props) {
-    super(props);
-    this.state = {
-      userId: Number(this.props.match.params.userId)
-    }
-  }
-  
+class AllOrders extends Component {  
   componentDidMount() {
+    this.props.getOrders(this.props.user.id);
     this.props.getCartItems();
-    this.props.getOrders(this.state.userId);
-    this.props.getUser(this.state.userId);
-    this.props.getCats();
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.user.userName !== nextProps.user.userName) {
+      this.props.getOrders(nextProps.user.id);
+    }
+}
 
   render() {
+    const {user} = this.props;
     const {orders} = this.props;
     const {cart} = this.props;
-    const {singleUser} = this.props;
-    const {cats} = this.props;
-    console.log("props", this.props);
-    console.log("orders", orders);
 
     return (
       <div>
-        <h1> {singleUser.userName}'s Purchases are: </h1>
+        <h3> {user.userName}'s Purchases: </h3>
         { orders.map( order => (
           <div key={order.id}>
             <Link to={`/orders/users/${order.id}`}>
@@ -45,18 +36,12 @@ class AllOrders extends Component {
                 return (
                 <ul key={i}> 
 
-                  { cats.map( (cat) => {
-                    if(cat.id === cart.catId) {
-                      return (
-                      <orderstyle>  
-                      <div key={cat.id}>
-                        <h4 id="orderstyleid"> {cat.name} </h4>
-                        <img src={cat.image} alt="cats" height="100" />
-                      </div>  
-                      </orderstyle>
-                      )
-                    }
-                  })}
+                  <orderstyle>  
+                  <div key={cart.cat.id}>
+                    <h4 id="orderstyleid"> {cart.cat.name} </h4>
+                    <img src={cart.cat.image} alt="cats" height="100" />
+                  </div>  
+                  </orderstyle>
 
                 </ul> 
                 )
@@ -69,7 +54,7 @@ class AllOrders extends Component {
             <br />
             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
             Status: {order.status} 
-              { (order.status == "Delivered") ? " to "+singleUser.address : null }
+              { (order.status == "Delivered") ? " to "+user.address : null }
             <br /><br /><br /><br /><br /><br />
           </div>
         ))}
@@ -83,9 +68,7 @@ class AllOrders extends Component {
 const mapState = state => {
   return {
     orders: state.orders,
-    cart: state.cart,
-    singleUser: state.singleUser,
-    cats: state.cats
+    cart: state.cart
   };
 };
 
@@ -96,12 +79,6 @@ const mapDispatch = dispatch => {
       },
       getCartItems: () => {
         return dispatch(fetchCarts());
-      },
-      getUser: (userId) => {
-        return dispatch(fetchUser(userId));
-      },
-      getCats: () => {
-        return dispatch(fetchCats());
       }
   };
 };

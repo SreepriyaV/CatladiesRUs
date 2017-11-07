@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {withRouter, Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {fetchCats} from '../store/reducers/cats';
+import SearchBar from './SearchBar.jsx';
 
 class AllCatsComponent extends Component {
 
@@ -10,6 +11,7 @@ class AllCatsComponent extends Component {
     super(props);
     this.state = {
       filteredCats: [],
+      inputValue: '',
       short: false,
       medium: false,
       long: false,
@@ -20,6 +22,7 @@ class AllCatsComponent extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -36,9 +39,20 @@ class AllCatsComponent extends Component {
     this.setState({filteredCats: newState, [checkbox]: checked})
   }
 
+  handleSearch (event) {
+    const value = event.target.value;
+    const regEx = new RegExp(value, 'i')
+    const newState = this.props.cats.filter(cat => cat.name.match(regEx))
+    this.setState({
+      filteredCats: newState,
+      inputValue: value
+    });
+  }
+
   clearFilters() {
     this.setState({
       filteredCats: [],
+      inputValue: '',
       short: false,
       medium: false,
       long: false,
@@ -52,7 +66,9 @@ class AllCatsComponent extends Component {
   render() {
 
     const cats = (this.state.filteredCats.length) ? this.state.filteredCats : this.props.cats;
-    console.log(cats)
+
+    console.log('input value', this.state.inputValue)
+    console.log('filtered Cats', cats)
     return (
       <catstyle>
       <div>
@@ -94,7 +110,8 @@ class AllCatsComponent extends Component {
             </div>
         </fieldset>
 
-        {/* MAKE A CLEAR FILTERS BUTTON */}
+        <SearchBar handleChange={this.handleSearch} inputValue={this.state.inputValue} />
+
         <br /> <br />
         <div>{ cats.map( cat => (
           <div id="catstyleid" key={cat.id}>

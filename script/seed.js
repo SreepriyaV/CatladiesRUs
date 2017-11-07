@@ -158,7 +158,7 @@ var data = {
       hairLength: 'short',
       profession: 'Spazzer',
       price: 451.13,
-      image: 'images/Steve-Buscemi.jpg',
+      image: '/images/Steve-Buscemi.jpg',
       quantity: 7
     },   {
       name: 'Teagan and Sara',
@@ -169,7 +169,7 @@ var data = {
       hairLength: 'short',
       profession: 'Howler',
       price: 948.14,
-      image: 'images/tegan-and-sara.jpg',
+      image: '/images/tegan-and-sara.jpg',
       quantity: 2
     },   {
       name: 'Ryan Gosling',
@@ -180,7 +180,7 @@ var data = {
       hairLength: 'short',
       profession: 'Drama Queen',
       price: 837.15,
-      image: 'images/Ryan-Gosling.jpg',
+      image: '/images/Ryan-Gosling.jpg',
       quantity: 9
     },   {
       name: 'William Howard Taft',
