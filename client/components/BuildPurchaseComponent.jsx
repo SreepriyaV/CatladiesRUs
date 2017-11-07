@@ -1,105 +1,111 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import SingleUserComponent from "./SingleUserComponent.jsx";
-import { fetchUser, putStatus } from "../store/reducers/singleUser";
-import { connect } from "react-redux";
+'use strict';
+//const nodemailer = require('nodemailer');
+
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import ThankYou from './ThankYou.js'
+//import nodemailer from 'nodemailer';
+import { connect } from 'react-redux';
 
 //COMPONENT
-  export default function BuildPurchaseComponent() {
+class BuildPurchaseComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      address: '',
+      email: ''
+    };
+    this.onHandleChange = this.onHandleChange.bind(this);
+   // this.sendMail = this.sendMail.bind(this);
+  }
 
+sendMail(email)
+{
+    const message = 'Your order has been shipped. Thank You for shopping with us. ';
+    const subject = 'Order Shipped';
+    document.location.href = `mailto:${email}?subject=`
+        + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(message);
+
+}
+
+
+  onHandleChange(event) {
+    event.preventDefault();
+    console.log(event.target.name.value);
+    this.setState({
+      name: event.target.name.value,
+      address: event.target.address.value,
+      email: event.target.email.value
+    });
+    this.sendMail(event.target.email.value);
+   this.props.history.push('/purchase/ThankYou');
+  }
+  render() {
+    const { user } = this.props;
     return (
       <div>
-        
-        <div className="field">
-  <label className="label">Name</label>
-  <div className="control">
-    <input className="input" type="text" placeholder="Text input"/>
-     </div>
-    </div>
+        <div>
+          <form onSubmit={this.onHandleChange}>
+            <label className="label">Name</label>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                name="name"
+                placeholder="e.g Alex Smith"
+              />
+            </div>
 
+            <label className="label">Email</label>
+            <div className="control">
+              <input
+                className="input"
+                type="email"
+                name="email"
+                placeholder="e.g. alexsmith@gmail.com"
+                value={user && user.email}
+              />
+            </div>
 
-    <div className="field">
-  <label className="label">Username</label>
-  <div className="control has-icons-left has-icons-right">
-    <input className="input is-success" type="text" placeholder="Text input" value="bulma"/>
-    <span className="icon is-small is-left">
-      <i className="fa fa-user"/>
-    </span>
-    <span className="icon is-small is-right">
-      <i className="fa fa-check"/>
-    </span>
-  </div>
-  <p className="help is-success">This username is available</p>
-</div>
+            <label className="label">Address</label>
+            <div className="control">
+              <textarea
+                className="textarea"
+                name="address"
+                placeholder="Textarea"
+              />
+            </div>
 
+            <label className="checkbox">
+              <input type="checkbox" />
+              I agree to the <a href="#">terms and conditions</a>
+            </label>
 
-<div className="field">
-  <label className="label">Email</label>
-  <div className="control has-icons-left has-icons-right">
-    <input className="input is-danger" type="email" placeholder="Email input" value="hello@"/>
-    <span className="icon is-small is-left">
-      <i className="fa fa-envelope"></i>
-    </span>
-    <span className="icon is-small is-right">
-      <i className="fa fa-warning"></i>
-    </span>
-  </div>
-  <p className="help is-danger">This email is invalid</p>
-</div>
-
-<div className="field">
-  <label className="label">Subject</label>
-  <div className="control">
-    <div className="select">
-      <select>
-        <option>Select dropdown</option>
-        <option>With options</option>
-      </select>
-    </div>
-  </div>
-</div>
-
-<div className="field">
-  <label className="label">Message</label>
-  <div className="control">
-    <textarea className="textarea" placeholder="Textarea"/>
-  </div>
-</div>
-
-<div className="field">
-  <div className="control">
-    <label className="checkbox">
-      <input type="checkbox"/>
-      I agree to the <a href="#">terms and conditions</a>
-    </label>
-  </div>
-</div>
-
-<div className="field">
-  <div className="control">
-    <label className="radio">
-      <input type="radio" name="question"/>
-      Yes
-    </label>
-    <label className="radio">
-      <input type="radio" name="question"/>
-      No
-    </label>
-  </div>
-</div>
-
-<div className="field is-grouped">
-  <div className="control">
-    <button className="button is-link">Submit</button>
-  </div>
-  <div className="control">
-    <button className="button is-text">Cancel</button>
-  </div>
-</div>
-       
+            <div className="control">
+              <button className="button is-link">CheckOut</button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
+}
 
+//CONTAINER
+const mapState = state => {
+  return {
+    user: state.user
+  };
+};
 
+// const mapDispatch = dispatch => {
+//   return {
+//       getCats: () => {
+//         return dispatch(fetchCats());
+//       }
+//   };
+// };
 
+export default connect(mapState, null)(BuildPurchaseComponent);
