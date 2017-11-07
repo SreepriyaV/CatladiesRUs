@@ -1,14 +1,15 @@
-const crypto = require('crypto')
-const Sequelize = require('sequelize')
-const db = require('../db')
+const crypto = require("crypto");
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-const User = db.define('user', {
-  userName:{
-    type:Sequelize.STRING
-    
+const User = db.define("user", {
+  userName: {
+    type: Sequelize.STRING,
+    unique: true
   },
-  isAdmin:{
-    type:Sequelize.BOOLEAN
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   },
   email: {
     type: Sequelize.STRING,
@@ -16,10 +17,11 @@ const User = db.define('user', {
     allowNull: false
   },
   password: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
-  address:{
-    type:Sequelize.STRING
+  address: {
+    type: Sequelize.STRING
   },
   salt: {
     type: Sequelize.STRING
@@ -27,41 +29,41 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   }
-})
+});
 
-module.exports = User
+module.exports = User;
 
 /**
  * instanceMethods
  */
-User.prototype.correctPassword = function (candidatePwd) {
-  return User.encryptPassword(candidatePwd, this.salt) === this.password
-}
+User.prototype.correctPassword = function(candidatePwd) {
+  return User.encryptPassword(candidatePwd, this.salt) === this.password;
+};
 
 /**
  * classMethods
  */
-User.generateSalt = function () {
-  return crypto.randomBytes(16).toString('base64')
-}
+User.generateSalt = function() {
+  return crypto.randomBytes(16).toString("base64");
+};
 
-User.encryptPassword = function (plainText, salt) {
+User.encryptPassword = function(plainText, salt) {
   return crypto
-    .createHash('RSA-SHA256')
+    .createHash("RSA-SHA256")
     .update(plainText)
     .update(salt)
-    .digest('hex')
-}
+    .digest("hex");
+};
 
 /**
  * hooks
  */
 const setSaltAndPassword = user => {
-  if (user.changed('password')) {
-    user.salt = User.generateSalt()
-    user.password = User.encryptPassword(user.password, user.salt)
+  if (user.changed("password")) {
+    user.salt = User.generateSalt();
+    user.password = User.encryptPassword(user.password, user.salt);
   }
-}
+};
 
-User.beforeCreate(setSaltAndPassword)
-User.beforeUpdate(setSaltAndPassword)
+User.beforeCreate(setSaltAndPassword);
+User.beforeUpdate(setSaltAndPassword);

@@ -1,13 +1,13 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
+const Sequelize = require('sequelize');
+const db = require('../db');
 
-const Orders = db.define("orders", {
+const Orders = db.define('orders', {
   status: {
-    type: Sequelize.ENUM('Created', 'Shipped', 'Delivered', 'Cancelled'),
+    type: Sequelize.ENUM('Created', 'Purchased', 'Shipped', 'Delivered', 'Cancelled'),
     defaultValue: 'Created'
   },
-  totalPrice:{
-    type: Sequelize.DECIMAL(12,2)
+  totalPrice: {
+    type: Sequelize.DECIMAL(12, 2)
   }
 });
 

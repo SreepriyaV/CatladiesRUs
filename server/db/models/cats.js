@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
+const Sequelize = require('sequelize');
+const db = require('../db');
 
-const Cats = db.define("cats", {
+const Cats = db.define('cats', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
@@ -30,7 +30,7 @@ const Cats = db.define("cats", {
     defaultValue: 0
   },
   price: {
-    type: Sequelize.DECIMAL(12,2),
+    type: Sequelize.DECIMAL(12, 2),
     allowNull: false
   },
   image: {

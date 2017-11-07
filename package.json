@@ -29,12 +29,17 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^7.1.1",
     "chai-things": "^0.2.0",
+    "child_process": "^1.0.2",
     "compression": "^1.7.1",
     "connect-session-sequelize": "^4.1.0",
+    "dgram": "^1.0.1",
+    "dns": "^0.2.2",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
+    "fs": "0.0.1-security",
     "history": "^4.6.3",
     "morgan": "^1.8.1",
+    "nodemailer": "^4.3.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "pg": "^6.1.2",
@@ -51,6 +56,7 @@
     "sequelize": "^4.3.1",
     "socket.io": "^2.0.3",
     "supertest": "^3.0.0"
+    "tls": "0.0.1"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.9.0",
