@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchOrders } from "../store/reducers/orders-reducer";
-import { fetchCarts } from "../store/reducers/cart-reducer";
+import { fetchCarts } from "../store/reducers/lineItem-reducer";
 import { fetchUserById } from "../store/reducers/singleUser";
 
 class AllOrders extends Component {
@@ -36,7 +36,8 @@ class AllOrders extends Component {
       user = this.props.user;
     }
     const { orders } = this.props;
-    const { cart } = this.props;
+    const { cartItems } = this.props;
+
     return (
       <div>
         <h3> {user.userName}'s Purchases: </h3>
@@ -45,7 +46,7 @@ class AllOrders extends Component {
             <Link to={`/orders/users/${order.id}`}>
               <h3> Order #{order.id}: </h3>
             </Link>
-            {cart.map((cart, i) => {
+            {cartItems.map((cart, i) => {
               if (order.id === cart.orderId) {
                 return (
                   <ul key={i}>
@@ -83,7 +84,7 @@ class AllOrders extends Component {
 const mapState = state => {
   return {
     orders: state.orders,
-    cart: state.cart,
+    cartItems: state.cartItems,
     me: state.user
   };
 };

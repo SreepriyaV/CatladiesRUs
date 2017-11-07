@@ -9,6 +9,7 @@ import cart from './reducers/cart-reducer';
 import singleUser from './reducers/singleUser';
 import orders from './reducers/orders-reducer';
 import currentOrder from './reducers/currentOrder';
+import cartItems from './reducers/lineItem-reducer';
 
 const reducer = combineReducers({
   user,
@@ -17,7 +18,8 @@ const reducer = combineReducers({
   cat,
   singleUser,
   orders,
-  currentOrder
+  currentOrder,
+  cartItems
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
@@ -29,7 +31,8 @@ const defaultState = {
   cat: {},
   singleUser: {},
   orders: [],
-  currentOrder: {}
+  currentOrder: {},
+  cartItems: []
 };
 
 const store = createStore(
@@ -53,3 +56,4 @@ export * from './reducers/cart-reducer';
 export * from './reducers/singleUser';
 export * from './reducers/orders-reducer';
 export * from './reducers/currentOrder';
+export * from './reducers/lineItem-reducer';
