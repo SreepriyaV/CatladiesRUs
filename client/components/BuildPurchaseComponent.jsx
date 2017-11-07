@@ -22,8 +22,8 @@ class BuildPurchaseComponent extends Component {
 
 sendMail(email)
 {
-    const message = 'Your order has been shipped. Thank You for shopping with us. ';
-    const subject = 'Order Shipped';
+    const message = 'Your order has been confirmed. Thank You for shopping with us. ';
+    const subject = 'Order Confirmation';
     document.location.href = `mailto:${email}?subject=`
         + encodeURIComponent(subject)
         + '&body=' + encodeURIComponent(message);
@@ -74,7 +74,41 @@ sendMail(email)
               <textarea
                 className="textarea"
                 name="address"
-                placeholder="Textarea"
+                placeholder="To Address"
+                value={user && user.address}
+              />
+            </div>
+
+            <label className="label">Card Number</label>
+            <div className="control">
+              <input
+                className="input"
+                type="cardnumber"
+                name="cardnumber"
+                placeholder="xxxx-xxxx-xxxx-xxxx"
+            
+              />
+            </div>
+
+            <label className="label">Expiration Date</label>
+            <div className="control">
+              <input
+                className="input"
+                type="expirationdate"
+                name="expirationdate"
+                placeholder="MM / YY"
+            
+              />
+            </div>
+
+             <label className="label">CVC</label>
+            <div className="control">
+              <input
+                className="input"
+                type="CVC"
+                name="CVC"
+                placeholder="CVC"
+            
               />
             </div>
 
