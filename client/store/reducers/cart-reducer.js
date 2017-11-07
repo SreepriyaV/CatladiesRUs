@@ -5,7 +5,6 @@ import axios from 'axios'
 const ADD_TO_CART = 'ADD_TO_CART'
 const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
 const DELETE_CAT = 'DELETE_CAT'
-
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
 const GET_USER_CART = 'GET_USER_CART'
 
@@ -16,7 +15,6 @@ const defaultCart = []
 export const addToCart = cat => ({type: ADD_TO_CART, cat})
 export const updateQuantity = (newCart) => ({type: UPDATE_QUANTITY, newCart})
 export const deleteCat = newCart => ({type: DELETE_CAT, newCart})
-
 export const getCartItems = carts => ({type: GET_CART_ITEMS, carts})
 export const getUserCart = cart => ({type: GET_USER_CART, cart})
 
@@ -40,7 +38,6 @@ export const removeCat = (catToRemove, cart) =>
         const newCart = cart.filter(cat => cat.id !== catToRemove.id)
         dispatch(deleteCat(newCart))
       }
-        
 
 //REDUCER
 export default function (state = defaultCart, action) {
