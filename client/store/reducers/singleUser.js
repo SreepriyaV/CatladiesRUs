@@ -15,6 +15,12 @@ export const fetchUser = (userName) => dispatch =>
     .get(`/api/user/${userName}`)
     .then(res => dispatch(getUser(res.data)))
     .catch(err => console.log(err));
+    
+export const fetchUserById = (userId) => dispatch =>
+    axios
+      .get(`/api/user/${userId}`)
+      .then(res => dispatch(getUser(res.data)))
+      .catch(err => console.log(err));
 
 export const putStatus = (userName,isAdmin) => dispatch =>
   axios
