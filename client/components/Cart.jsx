@@ -14,31 +14,25 @@ class Cart extends Component {
         this.state = {
             quantity: []
         }
-        this.decreaseQuantity = this.decreaseQuantity.bind(this)
-        this.increaseQuantity = this.increaseQuantity.bind(this)
+        this.changeQuantity = this.changeQuantity.bind(this)
     }
 
-    getSubtotal = (array) => {
+    getSubtotal = (catArray, quantityArray) => {
         let total = 0
-        array.forEach(cat => {
-            total += Number(cat.price)
+        catArray.forEach((cat, idx) => {
+            total += Number(cat.price) * quantityArray[idx]
         })
         return total.toFixed(2)
     }
 
-    decreaseQuantity(event) {
+    changeQuantity(event) {
         const key = Number(event.target.value);
+        const id = event.target.id
         const quantity = (this.state.quantity.length) ? this.state.quantity : this.props.quantity
-        const newQuantity = quantity.map((el, i) => { return ((i === key) ? --el : el)})
-        this.setState({quantity: newQuantity})
-    }
-
-    increaseQuantity(event) {
-        const key = Number(event.target.value);
-        const quantity = (this.state.quantity.length) ? this.state.quantity : this.props.quantity
-        const newQuantity = quantity.map((el, i) => { return ((i === key) ? ++el : el)})
-        console.log('key', typeof key)
-        console.log('newQuantity', newQuantity)
+        const newQuantity = quantity.map((el, i) => {
+            return ((i === key)
+            ? (id === 'up') ? ++el : --el
+            : el)})
         this.setState({quantity: newQuantity})
     }
 
@@ -55,9 +49,9 @@ class Cart extends Component {
                         <h3>{cat.name}</h3>
                         <img src={cat.image} />
                         <h4>{cat.price}</h4>
-                        <button value={index} onClick={this.decreaseQuantity} disabled={quantity[index] === 0}>-</button>
+                        <button id="down" value={index} onClick={this.changeQuantity} disabled={quantity[index] === 0}>-</button>
                         <p>{quantity[index]}</p>
-                        <button value={index} onClick={this.increaseQuantity} disabled={quantity[index] === cat.quantity}>+</button>
+                        <button id="up" value={index} onClick={this.changeQuantity} disabled={quantity[index] === cat.quantity}>+</button>
                         <button onClick={() => this.props.removeCatFromCart(cat, this.props.cart)}>Remove Cat from Cart</button>
                     </div>
                     )
@@ -65,7 +59,7 @@ class Cart extends Component {
             )}</div>
             <div>
                 <h3>Subtotal:</h3>
-                <h3>{this.getSubtotal(cart)}</h3>
+                <h3>{this.getSubtotal(cart, quantity)}</h3>
             </div>
             <div>
                 <Link to="#">
