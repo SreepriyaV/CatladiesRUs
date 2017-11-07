@@ -4,24 +4,32 @@ import {withRouter, Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {fetchOrders} from '../store/reducers/orders-reducer';
 import {fetchCarts} from '../store/reducers/cart-reducer';
+import {fetchUserById} from '../store/reducers/singleUser';
 
 class AllOrders extends Component {  
   componentDidMount() {
-    this.props.getOrders(this.props.user.id);
+    //if accessing through a logged in user's Purchase History link
+    if(this.props.match) {
+      this.props.getOrders(this.props.match.params.userId)
+      this.props.getUser(this.props.match.params.userId)
+    }
+    //if accessing through the admin's user search management page
+    else {this.props.getOrders(this.props.user.id)};
     this.props.getCartItems();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.user.userName !== nextProps.user.userName) {
+    if (!this.props.match && this.props.user.userName !== nextProps.user.userName) {
       this.props.getOrders(nextProps.user.id);
     }
 }
 
   render() {
-    const {user} = this.props;
+    let user;
+    if(this.props.match) { user = this.props.me }
+    else { user = this.props.user }
     const {orders} = this.props;
     const {cart} = this.props;
-
     return (
       <div>
         <h3> {user.userName}'s Purchases: </h3>
@@ -68,7 +76,8 @@ class AllOrders extends Component {
 const mapState = state => {
   return {
     orders: state.orders,
-    cart: state.cart
+    cart: state.cart,
+    me: state.user
   };
 };
 
@@ -79,7 +88,10 @@ const mapDispatch = dispatch => {
       },
       getCartItems: () => {
         return dispatch(fetchCarts());
-      }
+      },
+       getUser: (userId) => {
+        return dispatch(fetchUserById(userId))
+      } 
   };
 };
 

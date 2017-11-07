@@ -30,10 +30,15 @@ class UserManagementComponent extends Component {
             <button>search</button>
           </div>
         </form>
-
-        {user.userName ? <SingleUserComponent user={user} /> : null}
-        {user.userName ? <AllOrders user={user} /> : null}
-       
+        { user ? 
+          (<div>
+            {user.userName ? <SingleUserComponent user={user} /> : null}
+            {user.userName ? <AllOrders user={user} /> : null}
+          </div>) :
+          (<div>
+            <h3>User does not exist</h3>
+          </div>)
+        }
       </div>
     );
   }

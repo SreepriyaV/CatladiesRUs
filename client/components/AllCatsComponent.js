@@ -26,7 +26,6 @@ class AllCatsComponent extends Component {
   }
 
   componentDidMount() {
-    console.log('component mounted')
     this.props.getCats()
   }
 
@@ -64,11 +63,7 @@ class AllCatsComponent extends Component {
   }
 
   render() {
-
     const cats = (this.state.filteredCats.length) ? this.state.filteredCats : this.props.cats;
-
-    console.log('input value', this.state.inputValue)
-    console.log('filtered Cats', cats)
     return (
       <catstyle>
       <div>
