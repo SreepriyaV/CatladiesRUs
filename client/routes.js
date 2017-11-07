@@ -36,6 +36,12 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route
+              exact
+              path="/users/user/Admin"
+              component={UserManagementComponent}
+            />
+            
             <Route exact path="/purchase/ThankYou" component={ThankYou} />
             <Route
               exact
@@ -46,11 +52,7 @@ class Routes extends Component {
               path={'/users/user/:userName'}
               component={SingleUserComponent}
             />
-            <Route
-              exact
-              path="/users/user/Admin"
-              component={UserManagementComponent}
-            />
+            
 
             <Route exact path="/cats" component={AllCatsComponent} />
             <Route exact path="/cats/:catId" component={SingleCat} />

@@ -24,7 +24,7 @@ class SingleUserComponent extends Component {
         <h1>User Details</h1>
         <h4>Username: {user.userName}</h4>
         <h4>User email: {user.email}</h4>
-        <h4>Admin Status: {user.isAdmin}</h4>
+        <h4>Admin Status: {user.isAdmin ? "Is an Admin" : "Is not an Admin"}</h4>
         <button
           onClick={() => {
             this.onSubmit(event, true);
