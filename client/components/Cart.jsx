@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { removeCat, createNewOrder } from "../store";
+import { removeCat, createNewOrder, clearCart } from "../store";
 
 /**
  * COMPONENT
@@ -32,13 +32,18 @@ class Cart extends Component {
       ? this.state.quantity
       : this.props.quantity;
     const newQuantity = quantity.map((el, i) => {
-      return i === key ? (id === "up" ? ++el : --el) : el;
+      return i === key 
+        ? (id === "up" 
+            ? ++el 
+            : --el) 
+        : el;
     });
     this.setState({ quantity: newQuantity });
   }
 
   handlePurchase(cart, quantityArray, totalPrice, userId) {
     this.props.startOrder(cart, quantityArray, totalPrice, userId);
+    this.props.clearTheCart();
   }
 
   render() {
@@ -127,6 +132,9 @@ const mapDispatch = dispatch => {
     },
     startOrder: (cart, quantity, totalPrice, userId) => {
       dispatch(createNewOrder(cart, quantity, totalPrice, userId));
+    },
+    clearTheCart: () => {
+        dispatch(clearCart())
     }
   };
 };
