@@ -37,7 +37,6 @@ export default function(state = defaultOrders, action) {
       return action.orders;
     case GET_ONE_ORDER:
       return action.singleOrder;
-
     default:
       return state;
   }

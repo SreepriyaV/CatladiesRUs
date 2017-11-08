@@ -1,9 +1,9 @@
-import axios from "axios";
 
 //ACTION TYPES
-const ADD_TO_CART = "ADD_TO_CART";
-const UPDATE_QUANTITY = "UPDATE_QUANTITY";
-const DELETE_CAT = "DELETE_CAT";
+const ADD_TO_CART = 'ADD_TO_CART';
+const UPDATE_QUANTITY = 'UPDATE_QUANTITY';
+const DELETE_CAT = 'DELETE_CAT';
+const CLEAR_CART = 'CLEAR_CART';
 
 //INITIAL STATE
 const defaultCart = [];
@@ -12,12 +12,15 @@ const defaultCart = [];
 export const addToCart = cat => ({ type: ADD_TO_CART, cat });
 export const updateQuantity = newCart => ({ type: UPDATE_QUANTITY, newCart });
 export const deleteCat = newCart => ({ type: DELETE_CAT, newCart });
+export const clearCart = () => ({ type: CLEAR_CART})
 
 //THUNK CREATORS
+
 export const removeCat = (catToRemove, cart) => dispatch => {
   const newCart = cart.filter(cat => cat.id !== catToRemove.id);
   dispatch(deleteCat(newCart));
 };
+
 
 //REDUCER
 export default function(state = defaultCart, action) {
@@ -28,6 +31,8 @@ export default function(state = defaultCart, action) {
       return action.newCart;
     case DELETE_CAT:
       return action.newCart;
+    case CLEAR_CART:
+      return defaultCart;
     default:
       return state;
   }
