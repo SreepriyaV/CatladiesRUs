@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchSingleOrder } from "../store/reducers/orders-reducer";
-import { fetchUserCart } from "../store/reducers/cart-reducer";
+import { fetchUserCart } from "../store/reducers/lineItem-reducer";
 import { fetchCats } from "../store/reducers/cats";
 import { putStatus } from "../store/reducers/singleUser";
 
