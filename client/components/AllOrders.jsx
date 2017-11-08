@@ -52,7 +52,7 @@ class AllOrders extends Component {
                   <ul key={i}>
                     <orderstyle>
                       <div key={cart.cat.id}>
-                        <h4 id="orderstyleid"> {cart.cat.name} </h4>
+                        <h4 id="orderstyleid"> ({cart.quantity}) {cart.cat.name} </h4>
                         <img src={cart.cat.image} alt="cats" height="100" />
                       </div>
                     </orderstyle>
